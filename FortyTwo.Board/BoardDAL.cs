@@ -13,7 +13,7 @@ namespace FortyTwo.Board
   {
     private static string getBoardConnectionString()
     {
-      return System.Configuration.ConfigurationSettings.AppSettings["RenteeConnectionString"];
+      return System.Configuration.ConfigurationSettings.AppSettings["BoardConnectionString"];
     }
 
     private static async Task<SqlDataReader> execStoredProcAsync(string procName, SqlConnection conn, params object[] parameters)
