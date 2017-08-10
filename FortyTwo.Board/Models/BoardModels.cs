@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FortyTwo.Board.Models
 {
-  class Notice
+  public class Notice
   {
+    public string Title { get; set; }
   }
 }
