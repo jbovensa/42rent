@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appcmd>
+    <SITE SITE.NAME="BoardAPI" SITE.ID="4242" bindings="http/*:80:board-api.42rent.com" state="Started">
+        <site name="BoardAPI" id="4242">
+            <bindings>
+                <binding protocol="http" bindingInformation="*:80:board-api.42rent.com" />
+            </bindings>
+            <limits />
+            <logFile>
+                <customFields>
+                </customFields>
+            </logFile>
+            <traceFailedRequestsLogging />
+            <applicationDefaults />
+            <virtualDirectoryDefaults />
+            <ftpServer>
+                <connections />
+                <security>
+                    <dataChannelSecurity />
+                    <commandFiltering>
+                    </commandFiltering>
+                    <ssl />
+                    <sslClientCertificates />
+                    <authentication>
+                        <anonymousAuthentication />
+                        <basicAuthentication />
+                        <clientCertAuthentication />
+                        <customAuthentication>
+                            <providers>
+                            </providers>
+                        </customAuthentication>
+                    </authentication>
+                    <customAuthorization>
+                        <provider />
+                    </customAuthorization>
+                </security>
+                <customFeatures>
+                    <providers>
+                    </providers>
+                </customFeatures>
+                <messages />
+                <fileHandling />
+                <firewallSupport />
+                <userIsolation>
+                    <activeDirectory />
+                </userIsolation>
+                <directoryBrowse />
+                <logFile />
+            </ftpServer>
+            <application path="/" applicationPool="BoardAPI">
+                <virtualDirectoryDefaults />
+                <virtualDirectory path="/" physicalPath="C:\Users\avivs\Documents\Personal\git\42rent\FortyTwo.BoardWebAPI" />
+            </application>
+        </site>
+    </SITE>
+</appcmd>
