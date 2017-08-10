@@ -1,4 +1,4 @@
-LOOKING FOR CONTRIBUTORS! THANKS :-)
+# LOOKING FOR CONTRIBUTORS! THANKS :-)
 
 # 42rent
 4 people looking 2 Rent
