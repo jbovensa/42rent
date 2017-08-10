@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortyTwo.Board", "FortyTwo.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortyTwo.BoardWebAPI", "FortyTwo.BoardWebAPI\FortyTwo.BoardWebAPI.csproj", "{C4CF50C0-32B2-418F-B241-3546E10EF177}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{CB1ECC09-6F29-461A-8961-886338A80F49}"
+	ProjectSection(SolutionItems) = preProject
+		DB\42.Board.bak = DB\42.Board.bak
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
