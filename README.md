@@ -16,3 +16,14 @@ On logout: "So long, and thanks for all the fish"
 "The Restaurant at the End of the Universe"
 "And Another Thing"
 "Life, the Universe and Everything"
+
+# How to setup
+Requirements:
+* MS SQL Server Express 2012+
+* IIS 7.0+
+
+DB:
+* Run as administrator the batch file 42ConfigureDB.bat from the DB folder
+
+IIS:
+* Run as administrator the batch file 42ConfigureIIS.bat from the IIS folder
