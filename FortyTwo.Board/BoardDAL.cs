@@ -51,6 +51,19 @@ namespace FortyTwo.Board
       return true;
     }
 
+    public static async Task<bool> SuggestNeighborhood(string language, Neighborhood neighborhood)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("SuggestNeighborhood", conn,
+          "Language", language,
+          "CityID", (neighborhood.City != null) ? neighborhood.City.CityID : (int?)null,
+          "Name", neighborhood.Name
+          );
+      }
+      return true;
+    }
+
     public static async Task<bool> InsertImmobileNoticeAsync(string language, ImmobileNotice notice)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))

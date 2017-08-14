@@ -21,6 +21,13 @@ namespace FortyTwo.Board.Models
     public int Population { get; set; }
   }
 
+  public class Neighborhood
+  {
+    public int NeighborhoodID { get; set; }
+    public City City { get; set; }
+    public string Name { get; set; }
+  }
+
   public class Price
   {
     public float Amount { get; set; }
@@ -38,5 +45,6 @@ namespace FortyTwo.Board.Models
   {
     public District District { get; set; }
     public City City { get; set; }
+    public Neighborhood Neighborhood { get; set; }
   }
 }

@@ -20,6 +20,10 @@ namespace FortyTwo.BoardWebAPI.Controllers
     {
       return await BoardDAL.SuggestCity(language, city);
     }
+    public async Task<bool> SuggestNeighborhood(string language, Neighborhood neighborhood)
+    {
+      return await BoardDAL.SuggestNeighborhood(language, neighborhood);
+    }
 
     public async Task<bool> InsertImmobileNotice(string language, ImmobileNotice notice)
     {
