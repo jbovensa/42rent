@@ -12,6 +12,15 @@ namespace FortyTwo.BoardWebAPI.Controllers
 {
   public class RenteeController : ApiController
   {
+    public async Task<bool> SuggestDistrict(string language, District district)
+    {
+      return await BoardDAL.SuggestDistrict(language, district);
+    }
+    public async Task<bool> SuggestCity(string language, City city)
+    {
+      return await BoardDAL.SuggestCity(language, city);
+    }
+
     public async Task<bool> InsertImmobileNotice(string language, ImmobileNotice notice)
     {
       return await BoardDAL.InsertImmobileNoticeAsync(language, notice);

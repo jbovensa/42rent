@@ -13,7 +13,7 @@ namespace FortyTwo.Board
   {
     private static string getBoardConnectionString()
     {
-      return System.Configuration.ConfigurationSettings.AppSettings["BoardConnectionString"];
+      return System.Configuration.ConfigurationManager.AppSettings["BoardConnectionString"];
     }
 
     private static async Task<SqlDataReader> execStoredProcAsync(string procName, SqlConnection conn, params object[] parameters)
@@ -24,6 +24,31 @@ namespace FortyTwo.Board
         cmd.Parameters.AddWithValue(parameters[2 * n].ToString(), parameters[2 * n + 1]);
       await conn.OpenAsync();
       return await cmd.ExecuteReaderAsync();
+    }
+
+    public static async Task<bool> SuggestDistrict(string language, District district)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("SuggestDistrict", conn,
+          "Language", language,
+          "Name", district.Name
+          );
+      }
+      return true;
+    }
+
+    public static async Task<bool> SuggestCity(string language, City city)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("SuggestCity", conn,
+          "Language", language,
+          "DistrictID", (city.District != null) ? city.District.DistrictID : (int?)null,
+          "Name", city.Name
+          );
+      }
+      return true;
     }
 
     public static async Task<bool> InsertImmobileNoticeAsync(string language, ImmobileNotice notice)
