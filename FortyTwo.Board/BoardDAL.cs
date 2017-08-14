@@ -26,11 +26,18 @@ namespace FortyTwo.Board
       return await cmd.ExecuteReaderAsync();
     }
 
-    public static async Task<bool> InsertNoticeAsync(Notice notice)
+    public static async Task<bool> InsertImmobileNoticeAsync(string language, ImmobileNotice notice)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
-        var reader = await execStoredProcAsync("InsertNotice", conn, "Title", notice.Title);
+        var reader = await execStoredProcAsync("InsertNotice", conn,
+          "Language", language,
+          "Title", notice.Title,
+          "Price_Amount", notice.Price.Amount,
+          "Price_Currency", notice.Price.Currency,
+          "DistrictID", (notice.District != null) ? notice.District.DistrictID : (int?)null,
+          "CityID", (notice.City != null) ? notice.City.CityID : (int?)null
+          );
       }
       return true;
     }

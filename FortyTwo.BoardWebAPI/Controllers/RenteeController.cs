@@ -12,9 +12,9 @@ namespace FortyTwo.BoardWebAPI.Controllers
 {
   public class RenteeController : ApiController
   {
-    public async Task<bool> InsertNotice(Notice notice)
+    public async Task<bool> InsertImmobileNotice(string language, ImmobileNotice notice)
     {
-      return await BoardDAL.InsertNoticeAsync(notice);
+      return await BoardDAL.InsertImmobileNoticeAsync(language, notice);
     }
   }
 }
