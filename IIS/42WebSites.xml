@@ -1,56 +1,217 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<appcmd>
-    <SITE SITE.NAME="BoardAPI" SITE.ID="4242" bindings="http/*:80:board-api.42rent.com" state="Started">
-        <site name="BoardAPI" id="4242">
-            <bindings>
-                <binding protocol="http" bindingInformation="*:80:board-api.42rent.com" />
-            </bindings>
-            <limits />
-            <logFile>
-                <customFields>
-                </customFields>
-            </logFile>
-            <traceFailedRequestsLogging />
-            <applicationDefaults />
-            <virtualDirectoryDefaults />
-            <ftpServer>
-                <connections />
-                <security>
-                    <dataChannelSecurity />
-                    <commandFiltering>
-                    </commandFiltering>
-                    <ssl />
-                    <sslClientCertificates />
-                    <authentication>
-                        <anonymousAuthentication />
-                        <basicAuthentication />
-                        <clientCertAuthentication />
-                        <customAuthentication>
-                            <providers>
-                            </providers>
-                        </customAuthentication>
-                    </authentication>
-                    <customAuthorization>
-                        <provider />
-                    </customAuthorization>
-                </security>
-                <customFeatures>
-                    <providers>
-                    </providers>
-                </customFeatures>
-                <messages />
-                <fileHandling />
-                <firewallSupport />
-                <userIsolation>
-                    <activeDirectory />
-                </userIsolation>
-                <directoryBrowse />
-                <logFile />
-            </ftpServer>
-            <application path="/" applicationPool="BoardAPI">
-                <virtualDirectoryDefaults />
-                <virtualDirectory path="/" physicalPath="C:\Users\avivs\Documents\Personal\git\42rent\FortyTwo.BoardWebAPI" />
-            </application>
-        </site>
-    </SITE>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<appcmd>
+
+    <SITE SITE.NAME="BoardAPI" SITE.ID="42421" bindings="http/*:80:board-api.42rent.com" state="Started">
+
+        <site name="BoardAPI" id="42421">
+
+            <bindings>
+
+                <binding protocol="http" bindingInformation="*:80:board-api.42rent.com" />
+
+            </bindings>
+
+            <limits />
+
+            <logFile>
+
+                <customFields>
+
+                </customFields>
+
+            </logFile>
+
+            <traceFailedRequestsLogging />
+
+            <applicationDefaults />
+
+            <virtualDirectoryDefaults />
+
+            <ftpServer>
+
+                <connections />
+
+                <security>
+
+                    <dataChannelSecurity />
+
+                    <commandFiltering>
+
+                    </commandFiltering>
+
+                    <ssl />
+
+                    <sslClientCertificates />
+
+                    <authentication>
+
+                        <anonymousAuthentication />
+
+                        <basicAuthentication />
+
+                        <clientCertAuthentication />
+
+                        <customAuthentication>
+
+                            <providers>
+
+                            </providers>
+
+                        </customAuthentication>
+
+                    </authentication>
+
+                    <customAuthorization>
+
+                        <provider />
+
+                    </customAuthorization>
+
+                </security>
+
+                <customFeatures>
+
+                    <providers>
+
+                    </providers>
+
+                </customFeatures>
+
+                <messages />
+
+                <fileHandling />
+
+                <firewallSupport />
+
+                <userIsolation>
+
+                    <activeDirectory />
+
+                </userIsolation>
+
+                <directoryBrowse />
+
+                <logFile />
+
+            </ftpServer>
+
+            <application path="/" applicationPool="BoardAPI">
+
+                <virtualDirectoryDefaults />
+
+                <virtualDirectory path="/" physicalPath="C:\Users\avivs\Documents\Personal\git\42rent\FortyTwo.BoardWebAPI" />
+
+            </application>
+
+        </site>
+
+    </SITE>
+
+  <SITE SITE.NAME="42rent" SITE.ID="42422" bindings="http/*:80:www.42rent.com" state="Started">
+
+    <site name="42rent" id="42422">
+
+      <bindings>
+
+        <binding protocol="http" bindingInformation="*:80:www.42rent.com" />
+
+      </bindings>
+
+      <limits />
+
+      <logFile>
+
+        <customFields>
+
+        </customFields>
+
+      </logFile>
+
+      <traceFailedRequestsLogging />
+
+      <applicationDefaults />
+
+      <virtualDirectoryDefaults />
+
+      <ftpServer>
+
+        <connections />
+
+        <security>
+
+          <dataChannelSecurity />
+
+          <commandFiltering>
+
+          </commandFiltering>
+
+          <ssl />
+
+          <sslClientCertificates />
+
+          <authentication>
+
+            <anonymousAuthentication />
+
+            <basicAuthentication />
+
+            <clientCertAuthentication />
+
+            <customAuthentication>
+
+              <providers>
+
+              </providers>
+
+            </customAuthentication>
+
+          </authentication>
+
+          <customAuthorization>
+
+            <provider />
+
+          </customAuthorization>
+
+        </security>
+
+        <customFeatures>
+
+          <providers>
+
+          </providers>
+
+        </customFeatures>
+
+        <messages />
+
+        <fileHandling />
+
+        <firewallSupport />
+
+        <userIsolation>
+
+          <activeDirectory />
+
+        </userIsolation>
+
+        <directoryBrowse />
+
+        <logFile />
+
+      </ftpServer>
+
+      <application path="/" applicationPool="42rent">
+
+        <virtualDirectoryDefaults />
+
+        <virtualDirectory path="/" physicalPath="C:\Users\avivs\Documents\Personal\git\42rent\FortyTwo.RentWeb" />
+
+      </application>
+
+    </site>
+
+  </SITE>
+  
 </appcmd>

@@ -1,18 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<appcmd>
-    <APPPOOL APPPOOL.NAME="BoardAPI" PipelineMode="Integrated" RuntimeVersion="v4.0" state="Started">
-        <add name="BoardAPI">
-            <processModel />
-            <recycling>
-                <periodicRestart>
-                    <schedule>
-                    </schedule>
-                </periodicRestart>
-            </recycling>
-            <failure />
-            <cpu />
-            <environmentVariables>
-            </environmentVariables>
-        </add>
-    </APPPOOL>
-</appcmd>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<appcmd>
+
+  <APPPOOL APPPOOL.NAME="BoardAPI" PipelineMode="Integrated" RuntimeVersion="v4.0" state="Started">
+
+    <add name="BoardAPI">
+
+            <processModel />
+
+            <recycling>
+
+                <periodicRestart>
+
+                    <schedule>
+
+                    </schedule>
+
+                </periodicRestart>
+
+            </recycling>
+
+            <failure />
+
+            <cpu />
+
+            <environmentVariables>
+
+            </environmentVariables>
+
+        </add>
+
+  </APPPOOL>
+  
+  <APPPOOL APPPOOL.NAME="42rent" PipelineMode="Integrated" RuntimeVersion="v4.0" state="Started">
+      
+      <add name="42rent">
+
+        <processModel />
+
+        <recycling>
+
+          <periodicRestart>
+
+            <schedule>
+
+            </schedule>
+
+          </periodicRestart>
+
+        </recycling>
+
+        <failure />
+
+        <cpu />
+
+        <environmentVariables>
+
+        </environmentVariables>
+
+      </add>
+    
+    </APPPOOL>
+
+  </appcmd>

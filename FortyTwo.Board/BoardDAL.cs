@@ -26,7 +26,8 @@ namespace FortyTwo.Board
       return await cmd.ExecuteReaderAsync();
     }
 
-    public static async Task<bool> SuggestDistrict(string language, District district)
+
+    public static async Task<bool> InsertDistrictAsync(string language, District district)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
@@ -38,7 +39,7 @@ namespace FortyTwo.Board
       return true;
     }
 
-    public static async Task<bool> SuggestCity(string language, City city)
+    public static async Task<bool> InsertCityAsync(string language, City city)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
@@ -51,7 +52,7 @@ namespace FortyTwo.Board
       return true;
     }
 
-    public static async Task<bool> SuggestNeighborhood(string language, Neighborhood neighborhood)
+    public static async Task<bool> InsertNeighborhoodAsync(string language, Neighborhood neighborhood)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
@@ -64,6 +65,64 @@ namespace FortyTwo.Board
       return true;
     }
 
+    public static async Task<bool> InsertStreetAsync(string language, Street street)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("SuggestStreet", conn,
+          "Language", language,
+          "CityID", (street.City != null) ? street.City.CityID : (int?)null,
+          "Name", street.Name
+          );
+      }
+      return true;
+    }
+
+
+    public static async Task<Street> GetStreetAsync(string language, int streetID)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetStreet", conn,
+          "Language", language,
+          "StreetID", streetID
+          );
+
+        reader.Read();
+        return new Street()
+        {
+          StreetID = (int?)reader["StreetID"],
+          City = new City()
+          {
+            CityID = (int?)reader["CityID"]
+          },
+          Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+        };
+      }
+    }
+
+    public static async Task<Neighborhood> GetNeighborhoodAsync(string language, int neighborhoodID)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetNeighborhood", conn,
+          "Language", language,
+          "NeighborhoodID", neighborhoodID
+          );
+
+        reader.Read();
+        return new Neighborhood()
+        {
+          NeighborhoodID = (int?)reader["NeighborhoodID"],
+          City = new City()
+          {
+            CityID = (int?)reader["CityID"]
+          },
+          Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+        };
+      }
+    }
+
     public static async Task<bool> InsertImmobileNoticeAsync(string language, ImmobileNotice notice)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
@@ -71,10 +130,15 @@ namespace FortyTwo.Board
         var reader = await execStoredProcAsync("InsertNotice", conn,
           "Language", language,
           "Title", notice.Title,
-          "Price_Amount", notice.Price.Amount,
-          "Price_Currency", notice.Price.Currency,
-          "DistrictID", (notice.District != null) ? notice.District.DistrictID : (int?)null,
-          "CityID", (notice.City != null) ? notice.City.CityID : (int?)null
+          "Price_Amount", (notice.Price != null) ? notice.Price.Amount : (float?)null,
+          "Price_Currency", (notice.Price != null) ? notice.Price.Currency : null,
+          "Address_DistrictID", (notice.Address != null) ? ((notice.Address.District != null) ? notice.Address.District.DistrictID : (int?)null) : null,
+          "Address_CityID", (notice.Address != null) ? ((notice.Address.City != null) ? notice.Address.City.CityID : (int?)null) : null,
+          "Address_NeighborhoodID", (notice.Address != null) ? ((notice.Address.Neighborhood != null) ? notice.Address.Neighborhood.NeighborhoodID : (int?)null) : null,
+          "Address_StreetID", (notice.Address != null) ? ((notice.Address.Street != null) ? notice.Address.Street.StreetID : (int?)null) : null,
+          "Address_BuildingNumber", (notice.Address != null) ? notice.Address.BuildingNumber : null,
+          "Address_ApartmentNumber", (notice.Address != null) ? notice.Address.ApartmentNumber : null,
+          "PropertyTypeID", (notice.PropertyType != null) ? notice.PropertyType.PropertyTypeID : null
           );
       }
       return true;

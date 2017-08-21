@@ -14,19 +14,24 @@ namespace FortyTwo.BoardWebAPI.Controllers
   {
     public async Task<bool> SuggestDistrict(string language, District district)
     {
-      return await BoardDAL.SuggestDistrict(language, district);
+      return await BoardDAL.InsertDistrictAsync(language, district);
     }
     public async Task<bool> SuggestCity(string language, City city)
     {
-      return await BoardDAL.SuggestCity(language, city);
+      return await BoardDAL.InsertCityAsync(language, city);
     }
     public async Task<bool> SuggestNeighborhood(string language, Neighborhood neighborhood)
     {
-      return await BoardDAL.SuggestNeighborhood(language, neighborhood);
+      return await BoardDAL.InsertNeighborhoodAsync(language, neighborhood);
+    }
+    public async Task<bool> SuggestStreet(string language, Street street)
+    {
+      return await BoardDAL.InsertStreetAsync(language, street);
     }
 
-    public async Task<bool> InsertImmobileNotice(string language, ImmobileNotice notice)
+    public async Task<bool> PostImmobileNotice(string language, ImmobileNotice notice)
     {
+      await Validation.ValidateAddressAsync(notice.Address);
       return await BoardDAL.InsertImmobileNoticeAsync(language, notice);
     }
   }
