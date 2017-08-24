@@ -36,31 +36,31 @@
 		')'
 	);
 
-	/**
-	 * Gets directionality of the first strongly directional codepoint
-	 *
-	 * This is the rule the BIDI algorithm uses to determine the directionality of
-	 * paragraphs ( http://unicode.org/reports/tr9/#The_Paragraph_Level ) and
-	 * FSI isolates ( http://unicode.org/reports/tr9/#Explicit_Directional_Isolates ).
-	 *
-	 * TODO: Does not handle BIDI control characters inside the text.
-	 * TODO: Does not handle unallocated characters.
-	 * 
-	 * @param {String} text Text
-	 * @return {String} String
-	 */
-	function strongDirFromContent( text ) {
-		var m = text.match( strongDirRegExp );
-		if ( !m ) {
-			return null;
-		}
-		if ( m[2] === undefined ) {
-			return 'ltr';
-		}
-		return 'rtl';
-	}
+	$.extend($.i18n.parser.emitter, {
+		/**
+		 * Gets directionality of the first strongly directional codepoint
+		 *
+		 * This is the rule the BIDI algorithm uses to determine the directionality of
+		 * paragraphs ( http://unicode.org/reports/tr9/#The_Paragraph_Level ) and
+		 * FSI isolates ( http://unicode.org/reports/tr9/#Explicit_Directional_Isolates ).
+		 *
+		 * TODO: Does not handle BIDI control characters inside the text.
+		 * TODO: Does not handle unallocated characters.
+		 * 
+		 * @param {String} text Text
+		 * @return {String} String
+		 */
+		strongDirFromContent: function (text) {
 
-	$.extend( $.i18n.parser.emitter, {
+			var m = text.match(strongDirRegExp);
+			if (!m) {
+				return null;
+			}
+			if (m[2] === undefined) {
+				return 'ltr';
+			}
+			return 'rtl';
+		},
 		/**
 		 * Wraps argument with unicode control characters for directionality safety
 		 *
@@ -78,7 +78,7 @@
 		 * @return {String} String
 		 */
 		bidi: function ( nodes ) {
-			var dir = strongDirFromContent( nodes[0] );
+			var dir = this.strongDirFromContent( nodes[0] );
 			if ( dir === 'ltr' ) {
 				// Wrap in LEFT-TO-RIGHT EMBEDDING ... POP DIRECTIONAL FORMATTING
 				return '\u202A' + nodes[0] + '\u202C';
