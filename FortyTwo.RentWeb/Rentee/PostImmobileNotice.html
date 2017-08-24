@@ -2,10 +2,31 @@
 <html>
 <head>
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/PostImmobileNotice.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../JS/i18n/jquery.i18n.js"></script>
+    <script src="../JS/i18n/jquery.i18n.messagestore.js"></script>
+    <script src="../JS/i18n/languages/he.js"></script>
+    <script src="JS/PostImmobileNotice.js"></script>
 </head>
 <body>
-    <h1>Post Immobile Notice</h1>
+    <div class="header">
+        <h1 data-i18n="42Rent">42Rent</h1>
+    </div>
+    <div class="row">
+        <div class="col-3 col-m-3 menu">
+            <ul>
+                <li data-i18n="Post Immobile Notice">Post Immobile Notice</li>
+            </ul>
+        </div>
+        <div class="col-9 col-m-9">
+            <h1 data-i18n="Post Immobile Notice">Post Immobile Notice</h1>
+            <form>
+                <label for="ddlCity" data-i18n="City:">City:</label> <select id="ddlCity" />
+            </form>
+        </div>
+    </div>
 </body>
 </html>
