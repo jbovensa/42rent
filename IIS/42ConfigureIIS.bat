@@ -2,13 +2,10 @@ REM Prepare WebSites file
 @PAUSE
 	
 @echo off 
-set "rentIISDir=%~dp0"
-set "rentDir=%rentIISDir:~0,-4%"
-
 setlocal enableextensions disabledelayedexpansion
 
 set "search=$$42rent$$"
-set "replace=%rentDir%"
+set "replace=%~dp0.."
 
 set "inTextFile=%~dp042WebSites.xml"
 set "outTextFile=%~dp042WebSites.local.xml"
