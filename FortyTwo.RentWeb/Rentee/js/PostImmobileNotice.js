@@ -1,8 +1,8 @@
 ﻿/// <reference path="../../js/jquery/3.2.1/jquery.js" />
-/// <reference path="../../js/i18n/1.0.4/jquery.i18n.js" />
-/// <reference path="../../js/i18n/1.0.4/jquery.i18n.messagestore.js" />
-/// <reference path="../../js/i18n/1.0.4/jquery.i18n.emitter.bidi.js" />
-/// <reference path="../../js/i18n/1.0.4/languages/he.js" />
+/// <reference path="../../js/jquery.i18n/1.0.4/jquery.i18n.js" />
+/// <reference path="../../js/jquery.i18n/1.0.4/jquery.i18n.messagestore.js" />
+/// <reference path="../../js/jquery.i18n/1.0.4/jquery.i18n.emitter.bidi.js" />
+/// <reference path="../../js/jquery.i18n/1.0.4/languages/he.js" />
 
 'use strict';
 
