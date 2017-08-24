@@ -1,3 +1,21 @@
+REM Prepare WebSites file
+	
+@echo off 
+setlocal enableextensions disabledelayedexpansion
+
+set "search=$$42rent$$"
+set "replace=%~dp0.."
+
+set "textFile=%~dp042WebSites.xml"
+
+for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
+		set "line=%%i"
+		setlocal enabledelayedexpansion
+		>>"%textFile%" echo(!line:%search%=%replace%!
+		endlocal
+)
+@echo on
+
 REM Import 42AppPools
 @PAUSE
 %windir%\system32\inetsrv\appcmd add apppool /in < %~dp042AppPools.xml

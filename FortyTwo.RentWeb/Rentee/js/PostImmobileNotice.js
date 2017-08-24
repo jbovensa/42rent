@@ -22,7 +22,9 @@ function runI18n() {
 }
 
 function fillDistricts() {
-  $.ajax("/api/")
+  $.getJSON("http://boardapi.42rent.com/api/Board/GetDistricts?language=" + $.i18n().locale, function (data) {
+    alert(data);
+  });
 }
 
 // Enable debug
