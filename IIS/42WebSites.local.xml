@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appcmd>
+  <SITE SITE.NAME="42rent" SITE.ID="42421" bindings="http/*:80:www.42rent.com" state="Started">
+    <site name="42rent" id="42421" serverAutoStart="true">
+      <bindings>
+        <binding protocol="http" bindingInformation="*:80:www.42rent.com" />
+      </bindings>
+      <limits />
+      <logFile>
+        <customFields>
+        </customFields>
+      </logFile>
+      <traceFailedRequestsLogging />
+      <applicationDefaults />
+      <virtualDirectoryDefaults />
+      <ftpServer>
+        <connections />
+        <security>
+          <dataChannelSecurity />
+          <commandFiltering>
+          </commandFiltering>
+          <ssl />
+          <sslClientCertificates />
+          <authentication>
+            <anonymousAuthentication />
+            <basicAuthentication />
+            <clientCertAuthentication />
+            <customAuthentication>
+              <providers>
+              </providers>
+            </customAuthentication>
+          </authentication>
+          <customAuthorization>
+            <provider />
+          </customAuthorization>
+        </security>
+        <customFeatures>
+          <providers>
+          </providers>
+        </customFeatures>
+        <messages />
+        <fileHandling />
+        <firewallSupport />
+        <userIsolation>
+          <activeDirectory />
+        </userIsolation>
+        <directoryBrowse />
+        <logFile />
+      </ftpServer>
+      <application path="/" applicationPool="42rent">
+        <virtualDirectoryDefaults />
+        <virtualDirectory path="/" physicalPath="C:\Users\avivs\Documents\Personal\git\42rent\IIS\..\FortyTwo.RentWeb" />
+      </application>
+      <application path="/api" applicationPool="42rent">
+        <virtualDirectoryDefaults />
+        <virtualDirectory path="/" physicalPath="C:\Users\avivs\Documents\Personal\git\42rent\IIS\..\FortyTwo.BoardWebAPI" />
+      </application>
+    </site>
+  </SITE>
+</appcmd>

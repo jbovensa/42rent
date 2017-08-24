@@ -1,4 +1,5 @@
 REM Prepare WebSites file
+@PAUSE
 	
 @echo off 
 setlocal enableextensions disabledelayedexpansion
@@ -6,12 +7,13 @@ setlocal enableextensions disabledelayedexpansion
 set "search=$$42rent$$"
 set "replace=%~dp0.."
 
-set "textFile=%~dp042WebSites.xml"
+set "inTextFile=%~dp042WebSites.xml"
+set "outTextFile=%~dp042WebSites.local.xml"
 
-for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
+for /f "delims=" %%i in ('type "%inTextFile%" ^& break ^> "%outTextFile%" ') do (
 		set "line=%%i"
 		setlocal enabledelayedexpansion
-		>>"%textFile%" echo(!line:%search%=%replace%!
+		>>"%outTextFile%" echo(!line:%search%=%replace%!
 		endlocal
 )
 @echo on
@@ -22,7 +24,7 @@ REM Import 42AppPools
 
 REM Import 42WebSites
 @PAUSE
-%windir%\system32\inetsrv\appcmd add site /in < %~dp042WebSites.xml
+%windir%\system32\inetsrv\appcmd add site /in < %~dp042WebSites.local.xml
 
 REM Declare 42 bindings in hosts file
 @PAUSE
