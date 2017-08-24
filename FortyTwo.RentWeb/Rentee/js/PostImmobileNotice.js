@@ -19,12 +19,21 @@ function runI18n() {
 		function () {
 			$('body').i18n();
 		});
+
+	fillDistricts();
 }
 
 function fillDistricts() {
-  $.getJSON("http://boardapi.42rent.com/api/Board/GetDistricts?language=" + $.i18n().locale, function (data) {
-    alert(data);
-  });
+
+	$("#ddlDistrict").empty();
+	$.getJSON("/api/Board/GetDistricts?language=" + $.i18n().locale, function (data) {
+		$(data).each(function (i, el) {
+			$("#ddlDistrict").append($('<option>', {
+				value: el.DistrictID,
+				text: el.Name
+			}));
+		});
+	});
 }
 
 // Enable debug
@@ -34,6 +43,4 @@ $(document).ready(function () {
 	runI18n();
 
 	$('#ddlLanguage').change(runI18n);
-
-	fillDistricts();
 });
