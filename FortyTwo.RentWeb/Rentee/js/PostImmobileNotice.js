@@ -21,6 +21,10 @@ function runI18n() {
 		});
 }
 
+function fillDistricts() {
+  $.ajax("/api/")
+}
+
 // Enable debug
 $.i18n.debug = true;
 
@@ -28,4 +32,6 @@ $(document).ready(function () {
 	runI18n();
 
 	$('#ddlLanguage').change(runI18n);
+
+	fillDistricts();
 });

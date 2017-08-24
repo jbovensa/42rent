@@ -13,24 +13,29 @@
     <script src="js/PostImmobileNotice.js"></script>
 </head>
 <body>
-    <div class="header">
-        <label for="ddlLanguage" data-i18n="Language:">Language:</label>
-        <select id="ddlLanguage">
-            <option value="en">English</option>
-            <option value="he">עברית</option>
-        </select>
-        <h1 data-i18n="42Rent">42Rent</h1>
+    <div class="row header">
+        <div class="col-t-10 col-10">
+            <h1 data-i18n="42Rent">42Rent</h1>
+        </div>
+        <div class="col-t-2 col-2">
+            <label for="ddlLanguage" data-i18n="Language:">Language:</label>
+            <select id="ddlLanguage">
+                <option value="en">English</option>
+                <option value="he">עברית</option>
+            </select>
+        </div>
     </div>
     <div class="row">
-        <div class="col-3 col-m-3 menu">
+        <div class="col-t-3 col-3 menu">
             <ul>
                 <li data-i18n="Post Immobile Notice">Post Immobile Notice</li>
             </ul>
         </div>
-        <div class="col-9 col-m-9">
+        <div class="col-t-9 col-9">
             <h1 data-i18n="Post Immobile Notice">Post Immobile Notice</h1>
             <form>
-                <label for="ddlCity" data-i18n="City:">City:</label> <select id="ddlCity" />
+                <label for="ddlDistrict" data-i18n="District:">District:</label> <select id="ddlDistrict"></select>
+                <label for="ddlCity" data-i18n="City:">City:</label> <select id="ddlCity"></select>
             </form>
         </div>
     </div>

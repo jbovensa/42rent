@@ -15,6 +15,11 @@ namespace FortyTwo.Board
     {
       return System.Configuration.ConfigurationManager.AppSettings["BoardConnectionString"];
     }
+    private static int? getNumSuggestionsThreshold()
+    {
+      var value = System.Configuration.ConfigurationManager.AppSettings["NumSuggestionsThreshold"];
+      return (!string.IsNullOrWhiteSpace(value)) ? int.Parse(value) : (int?)null;
+    }
 
     private static async Task<SqlDataReader> execStoredProcAsync(string procName, SqlConnection conn, params object[] parameters)
     {
@@ -79,6 +84,29 @@ namespace FortyTwo.Board
     }
 
 
+    public static async Task<IEnumerable<District>> GetDistrictsAsync(string language)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetDistricts", conn,
+          "Language", language,
+          "NumSuggestionsThreshold", getNumSuggestionsThreshold()
+          );
+
+        var districts = new List<District>();
+        while (reader.Read())
+        {
+          var district = new District()
+          {
+            DistrictID = (int?)reader["DistrictID"],
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          districts.Add(district);
+        }
+        return districts;
+      }
+    }
+
     public static async Task<Street> GetStreetAsync(string language, int streetID)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
@@ -122,6 +150,7 @@ namespace FortyTwo.Board
         };
       }
     }
+
 
     public static async Task<bool> InsertImmobileNoticeAsync(string language, ImmobileNotice notice)
     {
