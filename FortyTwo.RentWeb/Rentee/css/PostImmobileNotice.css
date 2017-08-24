@@ -8,6 +8,12 @@
     display: table;
 }
 
+html[dir="ltr"] [class*="col-"] {
+  float: left;
+}
+html[dir="rtl"] [class*="col-"] {
+  float: right;
+}
 [class*="col-"] {
     float: left;
     padding: 15px;

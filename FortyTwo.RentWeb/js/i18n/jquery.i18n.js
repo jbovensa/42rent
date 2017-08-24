@@ -20,7 +20,7 @@
 		slice = Array.prototype.slice;
 	/**
 	 * @constructor
-	 * @param {Object} options
+	 * @param {Object} options Options
 	 */
 	I18N = function ( options ) {
 		// Load defaults
@@ -132,9 +132,9 @@
 		 * If the data argument is null/undefined/false,
 		 * all cached messages for the i18n instance will get reset.
 		 *
-		 * @param {String|Object} source
+		 * @param {String|Object} source Source
 		 * @param {String} locale Language tag
-		 * @returns {jQuery.Promise}
+		 * @returns {jQuery.Promise} jQuery.Promise
 		 */
 		load: function ( source, locale ) {
 			var fallbackLocales, locIndex, fallbackLocale, sourceMap = {};
@@ -165,7 +165,7 @@
 		 *
 		 * @param {string} key Message key
 		 * @param {Array} parameters Message parameters
-		 * @return {string}
+		 * @return {string} String
 		 */
 		parse: function ( key, parameters ) {
 			var message = key.toLocaleString();

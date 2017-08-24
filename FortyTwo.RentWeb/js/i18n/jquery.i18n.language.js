@@ -265,11 +265,11 @@
 		/**
 		 * Plural form transformations, needed for some languages.
 		 *
-		 * @param count
+		 * @param {Number} count Count
 		 *            integer Non-localized quantifier
-		 * @param forms
+		 * @param {Array} forms
 		 *            array List of plural forms
-		 * @return string Correct form for quantifier in this language
+		 * @return {String} Correct form for quantifier in this language
 		 */
 		convertPlural: function ( count, forms ) {
 			var pluralRules,
@@ -317,9 +317,9 @@
 		/**
 		 * For the number, get the plural for index
 		 *
-		 * @param number
-		 * @param pluralRules
-		 * @return plural form index
+		 * @param {Number} number Number
+		 * @param {Array} pluralRules PluralRules
+		 * @return {Number} plural form index
 		 */
 		getPluralForm: function ( number, pluralRules ) {
 			var i,
@@ -344,6 +344,7 @@
 		 *
 		 * @param {number} num Value to be converted
 		 * @param {boolean} integer Convert the return value to an integer
+		 * @return {Number} Number
 		 */
 		convertNumber: function ( num, integer ) {
 			var tmp, item, i,
@@ -390,9 +391,9 @@
 		 * Override this method for languages that need special grammar rules
 		 * applied dynamically.
 		 *
-		 * @param word {String}
-		 * @param form {String}
-		 * @return {String}
+		 * @param {String} word Word
+		 * @param {String} form Form
+		 * @return {String} String
 		 */
 		convertGrammar: function ( word, form ) { /*jshint unused: false */
 			return word;
@@ -405,12 +406,12 @@
 		 *
 		 * These details may be overriden per language.
 		 *
-		 * @param gender
+		 * @param {String} gender
 		 *      string male, female, or anything else for neutral.
-		 * @param forms
+		 * @param {Array} forms
 		 *      array List of gender forms
 		 *
-		 * @return string
+		 * @return {String} String
 		 */
 		gender: function ( gender, forms ) {
 			if ( !forms || forms.length === 0 ) {
@@ -435,7 +436,7 @@
 		/**
 		 * Get the digit transform table for the given language
 		 * See http://cldr.unicode.org/translation/numbering-systems
-		 * @param language
+		 * @param {String} language Language
 		 * @returns {Array|boolean} List of digits in the passed language or false
 		 * representation, or boolean false if there is no information.
 		 */

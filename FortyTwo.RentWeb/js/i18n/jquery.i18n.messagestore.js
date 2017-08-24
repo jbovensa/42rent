@@ -41,9 +41,9 @@
 		 * null/undefined/false,
 		 * all cached messages for the i18n instance will get reset.
 		 *
-		 * @param {String|Object} source
+		 * @param {String|Object} source Source
 		 * @param {String} locale Language tag
-		 * @return {jQuery.Promise}
+		 * @return {jQuery.Promise} jQuery.Promise
 		 */
 		load: function ( source, locale ) {
 			var key = null,
@@ -85,8 +85,8 @@
 		/**
 		 * Set messages to the given locale.
 		 * If locale exists, add messages to the locale.
-		 * @param locale
-		 * @param messages
+		 * @param {String} locale Locale
+		 * @param {Array} messages Messages
 		 */
 		set: function ( locale, messages ) {
 			if ( !this.messages[locale] ) {
@@ -98,9 +98,9 @@
 
 		/**
 		 *
-		 * @param locale
-		 * @param messageKey
-		 * @returns {Boolean}
+		 * @param {String} locale Locale
+		 * @param {String} messageKey MessageKey
+		 * @returns {Boolean} Boolean
 		 */
 		get: function ( locale, messageKey ) {
 			return this.messages[locale] && this.messages[locale][messageKey];
