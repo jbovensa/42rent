@@ -49,11 +49,11 @@
       </ftpServer>
       <application path="/" applicationPool="42rent">
         <virtualDirectoryDefaults />
-        <virtualDirectory path="/" physicalPath="$$42rent$$\FortyTwo.RentWeb" />
+        <virtualDirectory path="/" physicalPath="$$42rent$$FortyTwo.RentWeb" />
       </application>
       <application path="/api" applicationPool="42rent">
         <virtualDirectoryDefaults />
-        <virtualDirectory path="/" physicalPath="$$42rent$$\FortyTwo.BoardWebAPI" />
+        <virtualDirectory path="/" physicalPath="$$42rent$$FortyTwo.BoardWebAPI" />
       </application>
     </site>
   </SITE>
