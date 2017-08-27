@@ -19,8 +19,8 @@ namespace FortyTwo.Board
       {
         if (address.Neighborhood != null && address.Neighborhood.NeighborhoodID.HasValue)
         {
-          address.Street = await BoardDAL.GetStreetAsync(null, address.Street.StreetID.Value);
-          address.Neighborhood = await BoardDAL.GetNeighborhoodAsync(null, address.Neighborhood.NeighborhoodID.Value);
+          address.Street = await BoardDAL.GetStreetAsync(address.Street.StreetID.Value);
+          address.Neighborhood = await BoardDAL.GetNeighborhoodAsync(address.Neighborhood.NeighborhoodID.Value);
 
           // Street and neighborhood cities don't match
           if (address.Street.City.CityID != address.Neighborhood.City.CityID)

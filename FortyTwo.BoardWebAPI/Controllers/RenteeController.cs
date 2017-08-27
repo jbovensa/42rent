@@ -29,10 +29,10 @@ namespace FortyTwo.BoardWebAPI.Controllers
       return await BoardDAL.InsertStreetAsync(language, street);
     }
 
-    public async Task<bool> PostImmobileNotice(string language, ImmobileNotice notice)
+    public async Task<bool> PostImmobileNotice(ImmobileNotice notice, string language = null)
     {
       await Validation.ValidateAddressAsync(notice.Address);
-      return await BoardDAL.InsertImmobileNoticeAsync(language, notice);
+      return await BoardDAL.InsertImmobileNoticeAsync(notice, language);
     }
   }
 }

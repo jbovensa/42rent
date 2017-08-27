@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 <html dir="ltr">
 <head>
-    <title></title>
+    <title data-i18n="Post Immobile Notice">Post Immobile Notice</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="css/PostImmobileNotice.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="../js/jquery.i18n/1.0.4/jquery.i18n.js"></script>
     <script src="../js/jquery.i18n/1.0.4/jquery.i18n.messagestore.js"></script>
     <script src="../js/jquery.i18n/1.0.4/jquery.i18n.emitter.bidi.js"></script>
@@ -15,13 +17,13 @@
 <body>
     <div class="row header">
         <div class="col-t-10 col-10">
-            <h1 data-i18n="42Rent">42Rent</h1>
+            <h3 data-i18n="42Rent">42Rent</h3>
         </div>
         <div class="col-t-2 col-2">
             <label for="ddlLanguage" data-i18n="Language:">Language:</label>
             <select id="ddlLanguage">
-                <option value="en">English</option>
                 <option value="he">עברית</option>
+                <option value="en">English</option>
             </select>
         </div>
     </div>
@@ -32,10 +34,19 @@
             </ul>
         </div>
         <div class="col-t-9 col-9">
-            <h1 data-i18n="Post Immobile Notice">Post Immobile Notice</h1>
+            <h3 data-i18n="Post Immobile Notice">Post Immobile Notice</h3>
             <form>
-                <label for="ddlDistrict" data-i18n="District:">District:</label> <select id="ddlDistrict"></select>
-                <label for="ddlCity" data-i18n="City:">City:</label> <select id="ddlCity"></select>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="ddlDistrict" data-i18n="District:">District:</label> <input id="ddlDistrictID" type="hidden" /><input id="ddlDistrict" />
+                    </div>
+                    <div class="col-4">
+                        <label for="ddlCity" data-i18n="City:">City:</label> <input id="ddlCityID" type="hidden" /><input id="ddlCity" />
+                    </div>
+                    <div class="col-4">
+                        <label for="ddlNeighborhood" data-i18n="Neighborhood:">Neighborhood:</label> <select id="ddlNeighborhood"></select>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

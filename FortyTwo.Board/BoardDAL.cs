@@ -107,7 +107,31 @@ namespace FortyTwo.Board
       }
     }
 
-    public static async Task<Street> GetStreetAsync(string language, int streetID)
+    public static async Task<IEnumerable<City>> GetCitiesAsync(string language, District district = null)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetCities", conn,
+          "Language", language,
+          "DistrictID", (district != null) ? district.DistrictID : (int?)null,
+          "NumSuggestionsThreshold", getNumSuggestionsThreshold()
+          );
+
+        var cities = new List<City>();
+        while (reader.Read())
+        {
+          var city = new City()
+          {
+            CityID = (int?)reader["CityID"],
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          cities.Add(city);
+        }
+        return cities;
+      }
+    }
+
+    public static async Task<Street> GetStreetAsync(int streetID, string language = null)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
@@ -129,7 +153,7 @@ namespace FortyTwo.Board
       }
     }
 
-    public static async Task<Neighborhood> GetNeighborhoodAsync(string language, int neighborhoodID)
+    public static async Task<Neighborhood> GetNeighborhoodAsync(int neighborhoodID, string language = null)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
@@ -152,7 +176,7 @@ namespace FortyTwo.Board
     }
 
 
-    public static async Task<bool> InsertImmobileNoticeAsync(string language, ImmobileNotice notice)
+    public static async Task<bool> InsertImmobileNoticeAsync(ImmobileNotice notice, string language = null)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {

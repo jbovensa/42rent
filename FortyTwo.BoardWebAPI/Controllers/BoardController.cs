@@ -16,5 +16,11 @@ namespace FortyTwo.BoardWebAPI.Controllers
     {
       return await BoardDAL.GetDistrictsAsync(language);
     }
+
+    [HttpPost]
+    public async Task<IEnumerable<City>> GetCities(string language, District district)
+    {
+      return await BoardDAL.GetCitiesAsync(language, district);
+    }
   }
 }
