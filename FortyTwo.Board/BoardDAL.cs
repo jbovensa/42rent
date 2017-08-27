@@ -123,6 +123,9 @@ namespace FortyTwo.Board
           var city = new City()
           {
             CityID = (int?)reader["CityID"],
+            Symbol = (string)reader["Symbol"],
+            District = (reader["DistrictID"] != DBNull.Value) ? new District() { DistrictID = (int?)reader["DistrictID"] } : null,
+            Population = (int)reader["Population"],
             Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
           };
           cities.Add(city);

@@ -24,6 +24,8 @@ function runI18n() {
 		});
 
 	fillDistricts();
+
+	fillCities();
 }
 
 function fillDistricts() {
@@ -50,6 +52,8 @@ function fillDistricts() {
 				// If new item reset hidden field value
 				if (ui.item === null)
 					$("#ddlDistrictID").removeAttr("value");
+
+				fillCities();
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
@@ -84,31 +88,34 @@ function fillCities() {
 
 	var $ddlCity = $("#ddlCity");
 
-	$.getJSON("/api/Board/GetDistricts?language=" + $.i18n().locale, function (districts) {
+	var districtID = $("#ddlDistrictID").val();
+	var district = (districtID !== "") ? { DistrictID: districtID } : null;
 
-		var districtItems = $.map(districts, function (el) {
-			return { value: el.DistrictID, label: el.Name };
+	$.post("/api/Board/GetCities?language=" + $.i18n().locale, district, function (cities) {
+
+		var cityItems = $.map(cities, function (el) {
+			return { value: el.CityID, label: el.Name };
 		});
 
 		// Init Districts DDL
-		$ddlDistrict.autocomplete({
-			source: districtItems,
+		$ddlCity.autocomplete({
+			source: cityItems,
 			minLength: 0,
 			select: function (event, ui) {
 				// Set hidden field value by selection
 				event.preventDefault();
-				$ddlDistrict.val(ui.item.label);
-				$("#ddlDistrictID").val(ui.item.value);
+				$ddlCity.val(ui.item.label);
+				$("#ddlCityID").val(ui.item.value);
 			},
 			change: function (event, ui) {
 				// If new item reset hidden field value
 				if (ui.item === null)
-					$("#ddlDistrictID").removeAttr("value");
+					$("#ddlCityID").removeAttr("value");
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
 				event.preventDefault();
-				$ddlDistrict.val(ui.item.label);
+				$ddlCity.val(ui.item.label);
 			}
 		});
 	});
