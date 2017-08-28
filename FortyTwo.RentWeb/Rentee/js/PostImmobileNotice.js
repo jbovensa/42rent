@@ -111,6 +111,8 @@ function fillCities() {
 				// If new item reset hidden field value
 				if (ui.item === null)
 					$("#ddlCityID").removeAttr("value");
+
+				fillNeighborhoods();
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
@@ -121,8 +123,49 @@ function fillCities() {
 	});
 }
 
+function fillNeighborhoods() {
+
+	var $ddlNeighborhood = $("#ddlNeighborhood");
+
+	var cityID = $("#ddlCityID").val();
+
+	if (cityID === "")
+		return;
+
+	var city = { CityID: cityID };
+
+	$.post("/api/Board/GetNeighborhoods?language=" + $.i18n().locale, city, function (neighborhoods) {
+
+		var neighborhoodItems = $.map(neighborhoods, function (el) {
+			return { value: el.NeighborhoodID, label: el.Name };
+		});
+
+		// Init Districts DDL
+		$ddlNeighborhood.autocomplete({
+			source: neighborhoodItems,
+			minLength: 0,
+			select: function (event, ui) {
+				// Set hidden field value by selection
+				event.preventDefault();
+				$ddlNeighborhood.val(ui.item.label);
+				$("#ddlNeighborhoodID").val(ui.item.value);
+			},
+			change: function (event, ui) {
+				// If new item reset hidden field value
+				if (ui.item === null)
+					$("#ddlNeighborhoodID").removeAttr("value");
+			},
+			focus: function (event, ui) {
+				// Show label on focus, not value
+				event.preventDefault();
+				$ddlNeighborhood.val(ui.item.label);
+			}
+		});
+	});
+}
+
 // Enable debug
-//$.i18n.debug = true;
+$.i18n.debug = true;
 
 $(document).ready(function () {
 	runI18n();

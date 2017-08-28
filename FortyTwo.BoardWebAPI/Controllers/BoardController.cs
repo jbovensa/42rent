@@ -31,5 +31,11 @@ namespace FortyTwo.BoardWebAPI.Controllers
 
       return cities;
     }
+
+    [HttpPost]
+    public async Task<IEnumerable<Neighborhood>> GetNeighborhoods(string language, City city)
+    {
+      return await BoardDAL.GetNeighborhoodsAsync(language, city);
+    }
   }
 }

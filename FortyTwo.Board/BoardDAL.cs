@@ -134,6 +134,31 @@ namespace FortyTwo.Board
       }
     }
 
+    public static async Task<IEnumerable<Neighborhood>> GetNeighborhoodsAsync(string language, City city)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetNeighborhoods", conn,
+          "Language", language,
+          "CityID", city.CityID,
+          "NumSuggestionsThreshold", getNumSuggestionsThreshold()
+          );
+
+        var neighborhoods = new List<Neighborhood>();
+        while (reader.Read())
+        {
+          var neighborhood = new Neighborhood()
+          {
+            NeighborhoodID = (int?)reader["NeighborhoodID"],
+            City = (reader["CityID"] != DBNull.Value) ? new City() { CityID = (int?)reader["CityID"] } : null,
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          neighborhoods.Add(neighborhood);
+        }
+        return neighborhoods;
+      }
+    }
+
     public static async Task<Street> GetStreetAsync(int streetID, string language = null)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
