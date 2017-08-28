@@ -16,10 +16,10 @@
 </head>
 <body>
     <div class="row header">
-        <div class="col-t-10 col-10">
+        <div class="col-m-12 col-t-10 col-10 cell">
             <h3 data-i18n="42Rent">42Rent</h3>
         </div>
-        <div class="col-t-2 col-2">
+        <div class="col-m-12 col-t-2 col-2 cell">
             <label for="ddlLanguage" data-i18n="Language:">Language:</label>
             <select id="ddlLanguage">
                 <option value="he">עברית</option>
@@ -28,22 +28,36 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-t-3 col-3 menu">
+        <div class="col-m-12 col-t-3 col-3 cell menu">
             <ul>
                 <li data-i18n="Post Immobile Notice">Post Immobile Notice</li>
             </ul>
         </div>
-        <div class="col-t-9 col-9">
+        <div class="col-m-12 col-t-9 col-9 cell">
             <h3 data-i18n="Post Immobile Notice">Post Immobile Notice</h3>
             <form>
                 <div class="row">
-                    <div class="col-4">
-                        <label for="ddlDistrict" data-i18n="District:">District:</label> <input id="ddlDistrictID" type="hidden" /><input id="ddlDistrict" />
+                    <div class="col-m-12 col-t-6 col-4 cell">
+                        <div class="row">
+                            <div class="col-m-3">
+                                <label for="ddlDistrict" data-i18n="District:">District:</label>
+                            </div>
+                            <div class="col-m-9">
+                                <input id="ddlDistrictID" type="hidden" /><input id="ddlDistrict" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <label for="ddlCity" data-i18n="City:">City:</label> <input id="ddlCityID" type="hidden" /><input id="ddlCity" />
-                    </div>
-                    <div class="col-4">
+                    <div class="col-m-12 col-t-6 col-4 cell">
+                        <div class="row">
+                            <div class="col-m-3">
+                                <label for="ddlCity" data-i18n="City:">City:</label>
+                            </div>
+                            <div class="col-m-9">
+                                <input id="ddlCityID" type="hidden" /><input id="ddlCity" />
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-m-12 col-t-12 col-4 cell">
                         <label for="ddlNeighborhood" data-i18n="Neighborhood:">Neighborhood:</label> <select id="ddlNeighborhood"></select>
                     </div>
                 </div>
