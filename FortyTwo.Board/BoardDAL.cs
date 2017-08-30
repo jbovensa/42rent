@@ -159,25 +159,28 @@ namespace FortyTwo.Board
       }
     }
 
-    public static async Task<Street> GetStreetAsync(int streetID, string language = null)
+    public static async Task<IEnumerable<Street>> GetStreetsAsync(string language, City city)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
-        var reader = await execStoredProcAsync("GetStreet", conn,
+        var reader = await execStoredProcAsync("GetStreets", conn,
           "Language", language,
-          "StreetID", streetID
+          "CityID", city.CityID,
+          "NumSuggestionsThreshold", getNumSuggestionsThreshold()
           );
 
-        reader.Read();
-        return new Street()
+        var streets = new List<Street>();
+        while (reader.Read())
         {
-          StreetID = (int?)reader["StreetID"],
-          City = new City()
+          var street = new Street()
           {
-            CityID = (int?)reader["CityID"]
-          },
-          Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
-        };
+            StreetID = (int?)reader["StreetID"],
+            City = (reader["CityID"] != DBNull.Value) ? new City() { CityID = (int?)reader["CityID"] } : null,
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          streets.Add(street);
+        }
+        return streets;
       }
     }
 
@@ -194,6 +197,28 @@ namespace FortyTwo.Board
         return new Neighborhood()
         {
           NeighborhoodID = (int?)reader["NeighborhoodID"],
+          City = new City()
+          {
+            CityID = (int?)reader["CityID"]
+          },
+          Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+        };
+      }
+    }
+
+    public static async Task<Street> GetStreetAsync(int streetID, string language = null)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetStreet", conn,
+          "Language", language,
+          "StreetID", streetID
+          );
+
+        reader.Read();
+        return new Street()
+        {
+          StreetID = (int?)reader["StreetID"],
           City = new City()
           {
             CityID = (int?)reader["CityID"]

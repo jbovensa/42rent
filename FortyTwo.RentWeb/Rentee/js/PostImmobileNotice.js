@@ -62,25 +62,25 @@ function fillDistricts() {
 			}
 		});
 
-		//var wasOpen = false;
-		//$("#ddlDistrictShow").mousedown(function () {
-		//	wasOpen = $ddlDistrict.autocomplete("widget").is(":visible");
-		//}).click(function () {
-		//	$ddlDistrict.trigger("focus");
+		var wasOpen = false;
+		$("#ddlDistrictShow").mousedown(function () {
+			wasOpen = $ddlDistrict.autocomplete("widget").is(":visible");
+		}).click(function () {
+			$ddlDistrict.trigger("focus");
 
-		//	if (wasOpen) {
-		//		return;
-		//	}
+			if (wasOpen) {
+				return;
+			}
 
-		//	$ddlDistrict.autocomplete("search", "");
-		//});
+			$ddlDistrict.autocomplete("search", "");
+		});
 
-		//$(data).each(function (i, el) {
-		//	$("#ddlDistrict").append($("<option>", {
-		//		value: el.DistrictID,
-		//		text: el.Name
-		//	}));
-		//});
+		$(data).each(function (i, el) {
+			$("#ddlDistrict").append($("<option>", {
+				value: el.DistrictID,
+				text: el.Name
+			}));
+		});
 	});
 }
 
@@ -113,6 +113,7 @@ function fillCities() {
 					$("#ddlCityID").removeAttr("value");
 
 				fillNeighborhoods();
+				fillStreets();
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
@@ -165,6 +166,47 @@ function fillNeighborhoods() {
 			}
 		});
 	});
+}
+
+function fillStreets() {
+
+  var $ddlStreet = $("#ddlStreet");
+
+  var cityID = $("#ddlCityID").val();
+
+  if (cityID === "")
+    return;
+
+  var city = { CityID: cityID };
+
+  $.post("/api/Board/GetStreets?language=" + $.i18n().locale, city, function (streets) {
+
+    var streetItems = $.map(streets, function (el) {
+      return { value: el.StreetID, label: el.Name };
+    });
+
+    // Init Districts DDL
+    $ddlStreet.autocomplete({
+      source: streetItems,
+      minLength: 0,
+      select: function (event, ui) {
+        // Set hidden field value by selection
+        event.preventDefault();
+        $ddlStreet.val(ui.item.label);
+        $("#ddlStreetID").val(ui.item.value);
+      },
+      change: function (event, ui) {
+        // If new item reset hidden field value
+        if (ui.item === null)
+          $("#ddlStreetID").removeAttr("value");
+      },
+      focus: function (event, ui) {
+        // Show label on focus, not value
+        event.preventDefault();
+        $ddlStreet.val(ui.item.label);
+      }
+    });
+  });
 }
 
 // Enable debug
