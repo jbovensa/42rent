@@ -86,7 +86,7 @@ function fillDistricts() {
 
 function fillCities() {
 
-	var $ddlCity = $("#ddlCity");
+  var $ddlCity = $("#ddlCity");
 
 	var districtID = $("#ddlDistrictID").val();
 	var district = (districtID !== "") ? { DistrictID: districtID } : null;
@@ -118,6 +118,9 @@ function fillCities() {
 				// Show label on focus, not value
 				event.preventDefault();
 				$ddlCity.val(ui.item.label);
+			},
+			search: function (event, ui) {
+        //TODO: load full list of cities after typed 3 characters
 			}
 		});
 	});
