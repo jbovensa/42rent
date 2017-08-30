@@ -168,7 +168,7 @@ function fillNeighborhoods() {
 }
 
 // Enable debug
-$.i18n.debug = true;
+//$.i18n.debug = true;
 
 $(document).ready(function () {
 	runI18n();
