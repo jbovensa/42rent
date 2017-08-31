@@ -71,6 +71,10 @@ html[dir="rtl"] [class*="col-"] {
 @media only screen and (orientation: landscape) {
 }
 
+.center {
+  text-align: center;
+}
+
 html {
     font-family: "Lucida Sans", sans-serif;
 }

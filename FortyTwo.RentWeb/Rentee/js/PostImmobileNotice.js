@@ -210,4 +210,33 @@ $(document).ready(function () {
   fillDistricts();
 
   fillCities();
+
+  $("#btnSubmit").click(function (event) {
+    var immobileNotice = {
+      Title: "Hello",
+      Address: {
+        District: {
+          DistrictID: $("#ddlDistrictID").val(),
+          Name: $("#ddlDistrict").val()
+        },
+        City: {
+          CityID: $("#ddlCityID").val(),
+          Name: $("#ddlCity").val()
+      },
+        Neighborhood: {
+          NeighborhoodID: $("#ddlNeighborhoodID").val(),
+          Name: $("#ddlNeighborhood").val()
+        },
+        Street: {
+          StreetID: $("#ddlStreetID").val(),
+          Name: $("#ddlStreet").val()
+        },
+        BuildingNumber: $("#txtBuilding").val(),
+        ApartmentNumber: $("#txtApartment").val()
+      }
+    };
+    $.post("/api/Rentee/PostImmobileNotice?language=" + $.i18n().locale, immobileNotice, function (result) {
+
+    });
+  });
 });

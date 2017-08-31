@@ -41,8 +41,8 @@ namespace FortyTwo.Board.Models
     public City City { get; set; }
     public Neighborhood Neighborhood { get; set; }
     public Street Street { get; set; }
-    public int? BuildingNumber { get; set; }
-    public int? ApartmentNumber { get; set; }
+    public string BuildingNumber { get; set; }
+    public string ApartmentNumber { get; set; }
   }
 
   public class PropertyType

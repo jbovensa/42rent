@@ -32,55 +32,60 @@ namespace FortyTwo.Board
     }
 
 
-    public static async Task<bool> InsertDistrictAsync(string language, District district)
+    public static async Task<int> InsertDistrictAsync(string language, District district)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
-        var reader = await execStoredProcAsync("SuggestDistrict", conn,
+        var reader = await execStoredProcAsync("InsertDistrict", conn,
           "Language", language,
           "Name", district.Name
           );
+        reader.Read();
+        return (int)reader["DistrictID"];
       }
-      return true;
     }
 
-    public static async Task<bool> InsertCityAsync(string language, City city)
+    public static async Task<int> InsertCityAsync(string language, City city)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
-        var reader = await execStoredProcAsync("SuggestCity", conn,
+        var reader = await execStoredProcAsync("InsertCity", conn,
           "Language", language,
           "DistrictID", (city.District != null) ? city.District.DistrictID : (int?)null,
-          "Name", city.Name
+          "Name", city.Name,
+          "NumSuggestionsThreshold", getNumSuggestionsThreshold()
           );
+        reader.Read();
+        return (int)reader["CityID"];
       }
-      return true;
     }
 
-    public static async Task<bool> InsertNeighborhoodAsync(string language, Neighborhood neighborhood)
+    public static async Task<int> InsertNeighborhoodAsync(string language, Neighborhood neighborhood)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
-        var reader = await execStoredProcAsync("SuggestNeighborhood", conn,
+        var reader = await execStoredProcAsync("InsertNeighborhood", conn,
           "Language", language,
           "CityID", (neighborhood.City != null) ? neighborhood.City.CityID : (int?)null,
           "Name", neighborhood.Name
           );
+        reader.Read();
+        return (int)reader["NeighborhoodID"];
       }
-      return true;
     }
 
-    public static async Task<bool> InsertStreetAsync(string language, Street street)
+    public static async Task<int> InsertStreetAsync(string language, Street street)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
-        var reader = await execStoredProcAsync("SuggestStreet", conn,
+        var reader = await execStoredProcAsync("InsertStreet", conn,
           "Language", language,
           "CityID", (street.City != null) ? street.City.CityID : (int?)null,
           "Name", street.Name
           );
+        reader.Read();
+        return (int)reader["StreetID"];
       }
-      return true;
     }
 
 
