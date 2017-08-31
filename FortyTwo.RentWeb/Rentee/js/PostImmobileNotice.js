@@ -187,18 +187,18 @@ function fillStreets() {
   });
 }
 
-function initPositiveIntegerFields() {
+//function initPositiveIntegerFields() {
 
-  $("#txtBuilding").keypress(function (event) {
-    if ([".", "-", "e"].indexOf(event.key) >= 0)
-      event.preventDefault();
-  });
+//  $("#txtBuilding").keypress(function (event) {
+//    if ([".", "-", "e"].indexOf(event.key) >= 0)
+//      event.preventDefault();
+//  });
 
-  $("#txtApartment").keypress(function (event) {
-    if ([".", "-", "e"].indexOf(event.key) >= 0)
-      event.preventDefault();
-  });
-}
+//  $("#txtApartment").keypress(function (event) {
+//    if ([".", "-", "e"].indexOf(event.key) >= 0)
+//      event.preventDefault();
+//  });
+//}
 
 // Enable debug
 //$.i18n.debug = true;
@@ -210,6 +210,4 @@ $(document).ready(function () {
   fillDistricts();
 
   fillCities();
-
-  initPositiveIntegerFields();
 });
