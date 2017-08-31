@@ -9,5 +9,7 @@
   "District:": "מחוז:",
   "City:": "עיר:",
   "Neighborhood:": "שכונה:",
-  "Street:": "רחוב:"
+  "Street:": "רחוב:",
+  "Building #:": "מספר בית:",
+  "Apartment #:": "מספר דירה:" 
 }

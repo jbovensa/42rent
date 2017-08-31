@@ -23,9 +23,7 @@ function runI18n() {
 			$("html").i18n();
 		});
 
-	fillDistricts();
-
-	fillCities();
+	$("#ddlLanguage").change(runI18n);
 }
 
 function fillDistricts() {
@@ -60,26 +58,6 @@ function fillDistricts() {
 				event.preventDefault();
 				$ddlDistrict.val(ui.item.label);
 			}
-		});
-
-		var wasOpen = false;
-		$("#ddlDistrictShow").mousedown(function () {
-			wasOpen = $ddlDistrict.autocomplete("widget").is(":visible");
-		}).click(function () {
-			$ddlDistrict.trigger("focus");
-
-			if (wasOpen) {
-				return;
-			}
-
-			$ddlDistrict.autocomplete("search", "");
-		});
-
-		$(data).each(function (i, el) {
-			$("#ddlDistrict").append($("<option>", {
-				value: el.DistrictID,
-				text: el.Name
-			}));
 		});
 	});
 }
@@ -209,11 +187,29 @@ function fillStreets() {
   });
 }
 
+function initPositiveIntegerFields() {
+
+  $("#txtBuilding").keypress(function (event) {
+    if ([".", "-", "e"].indexOf(event.key) >= 0)
+      event.preventDefault();
+  });
+
+  $("#txtApartment").keypress(function (event) {
+    if ([".", "-", "e"].indexOf(event.key) >= 0)
+      event.preventDefault();
+  });
+}
+
 // Enable debug
 //$.i18n.debug = true;
 
 $(document).ready(function () {
-	runI18n();
 
-	$("#ddlLanguage").change(runI18n);
+  runI18n();
+
+  fillDistricts();
+
+  fillCities();
+
+  initPositiveIntegerFields();
 });
