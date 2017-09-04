@@ -31,15 +31,20 @@ namespace FortyTwo.BoardWebAPI.Controllers
 
     public async Task<bool> PostImmobileNotice(ImmobileNotice notice, string language = null)
     {
-      int districtID;
-      if (!notice.Address.District.DistrictID.HasValue)
-        districtID = await BoardDAL.InsertDistrictAsync(language, notice.Address.District);
-      else
-        districtID = notice.Address.District.DistrictID.Value;
-
-      if (!notice.Address.City.CityID.HasValue)
+      if (!notice.Address.District.DistrictID.HasValue && notice.Address.District.Name != null)
       {
+        var districtID = await BoardDAL.InsertDistrictAsync(language, notice.Address.District);
+        notice.Address.District.DistrictID = districtID;
         notice.Address.City.District = new District() { DistrictID = districtID };
+
+        var cityID = await BoardDAL.InsertCityAsync(language, notice.Address.City);
+        notice.Address.City.CityID = cityID;
+      }
+      else
+        notice.Address.City.District = new District() { DistrictID = notice.Address.District.DistrictID };
+
+      if (!notice.Address.City.CityID.HasValue && notice.Address.City.Name != null)
+      {
         await BoardDAL.InsertCityAsync(language, notice.Address.City);
       }
 
