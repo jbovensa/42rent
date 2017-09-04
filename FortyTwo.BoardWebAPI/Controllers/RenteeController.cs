@@ -33,6 +33,7 @@ namespace FortyTwo.BoardWebAPI.Controllers
     {
       if (!notice.Address.District.DistrictID.HasValue && notice.Address.District.Name != null)
       {
+        // New district
         var districtID = await BoardDAL.InsertDistrictAsync(language, notice.Address.District);
         notice.Address.District.DistrictID = districtID;
         notice.Address.City.District = new District() { DistrictID = districtID };
@@ -41,13 +42,39 @@ namespace FortyTwo.BoardWebAPI.Controllers
         notice.Address.City.CityID = cityID;
       }
       else
+        // Existing district
         notice.Address.City.District = new District() { DistrictID = notice.Address.District.DistrictID };
 
       if (!notice.Address.City.CityID.HasValue && notice.Address.City.Name != null)
       {
-        await BoardDAL.InsertCityAsync(language, notice.Address.City);
+        // New city
+        var cityID = await BoardDAL.InsertCityAsync(language, notice.Address.City);
+        notice.Address.City.CityID = cityID;
+        notice.Address.Neighborhood.City = new City() { CityID = cityID };
+        notice.Address.Street.City = new City { CityID = cityID };
+      }
+      else
+      {
+        // Existing city
+        notice.Address.Neighborhood.City = new City { CityID = notice.Address.City.CityID };
+        notice.Address.Street.City = new City { CityID = notice.Address.City.CityID };
       }
 
+      if (!notice.Address.Neighborhood.NeighborhoodID.HasValue && notice.Address.Neighborhood.Name != null)
+      {
+        // New neighborhood
+        var neighborhoodID = await BoardDAL.InsertNeighborhoodAsync(language, notice.Address.Neighborhood);
+        notice.Address.Neighborhood.NeighborhoodID = neighborhoodID;
+      }
+
+      if (!notice.Address.Street.StreetID.HasValue && notice.Address.Street.Name != null)
+      {
+        // New street
+        var streetID = await BoardDAL.InsertStreetAsync(language, notice.Address.Street);
+        notice.Address.Street.StreetID = streetID;
+      }
+
+      //TODO: move this logic into the SP
       await Validation.ValidateAddressAsync(notice.Address);
 
       return await BoardDAL.InsertImmobileNoticeAsync(notice, language);
