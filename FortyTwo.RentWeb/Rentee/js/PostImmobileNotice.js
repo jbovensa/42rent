@@ -28,7 +28,8 @@ function runI18n() {
 
 function fillDistricts() {
 
-	var $ddlDistrict = $("#ddlDistrict");
+  var $ddlDistrict = $("#ddlDistrict");
+  var $ddlDistrictID = $("#ddlDistrictID");
 
 	$.getJSON("/api/Board/GetDistricts?language=" + $.i18n().locale, function (districts) {
 
@@ -44,14 +45,16 @@ function fillDistricts() {
 				// Set hidden field value by selection
 				event.preventDefault();
 				$ddlDistrict.val(ui.item.label);
-				$("#ddlDistrictID").val(ui.item.value);
+				$ddlDistrictID.val(ui.item.value);
 			},
 			change: function (event, ui) {
 				// If new item reset hidden field value
 				if (ui.item === null)
-					$("#ddlDistrictID").removeAttr("value");
+				  $ddlDistrictID.removeAttr("value");
 
 				fillCities();
+				fillNeighborhoods();
+				fillStreets();
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
@@ -65,6 +68,10 @@ function fillDistricts() {
 function fillCities() {
 
   var $ddlCity = $("#ddlCity");
+  var $ddlCityID = $("#ddlCityID");
+
+  $ddlCity.val("");
+  $ddlCityID.removeAttr("value");
 
 	var districtID = $("#ddlDistrictID").val();
 	var district = (districtID !== "") ? { DistrictID: districtID } : null;
@@ -83,12 +90,12 @@ function fillCities() {
 				// Set hidden field value by selection
 				event.preventDefault();
 				$ddlCity.val(ui.item.label);
-				$("#ddlCityID").val(ui.item.value);
+				$ddlCityID.val(ui.item.value);
 			},
 			change: function (event, ui) {
 				// If new item reset hidden field value
 				if (ui.item === null)
-					$("#ddlCityID").removeAttr("value");
+					$ddlCityID.removeAttr("value");
 
 				fillNeighborhoods();
 				fillStreets();
@@ -107,12 +114,18 @@ function fillCities() {
 
 function fillNeighborhoods() {
 
-	var $ddlNeighborhood = $("#ddlNeighborhood");
+  var $ddlNeighborhood = $("#ddlNeighborhood");
+  var $ddlNeighborhoodID = $("#ddlNeighborhoodID");
 
-	var cityID = $("#ddlCityID").val();
+  $ddlNeighborhood.val("");
+  $ddlNeighborhoodID.removeAttr("value");
 
-	if (cityID === "")
-		return;
+  var cityID = $("#ddlCityID").val();
+
+  if (cityID === "") {
+    $ddlNeighborhood.autocomplete({ source: [] });
+    return;
+  }
 
 	var city = { CityID: cityID };
 
@@ -130,12 +143,12 @@ function fillNeighborhoods() {
 				// Set hidden field value by selection
 				event.preventDefault();
 				$ddlNeighborhood.val(ui.item.label);
-				$("#ddlNeighborhoodID").val(ui.item.value);
+				$ddlNeighborhoodID.val(ui.item.value);
 			},
 			change: function (event, ui) {
 				// If new item reset hidden field value
 				if (ui.item === null)
-					$("#ddlNeighborhoodID").removeAttr("value");
+					$ddlNeighborhoodID.removeAttr("value");
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
@@ -149,11 +162,17 @@ function fillNeighborhoods() {
 function fillStreets() {
 
   var $ddlStreet = $("#ddlStreet");
+  var $ddlStreetID = $("#ddlStreetID");
+
+  $ddlStreet.val("");
+  $ddlStreetID.removeAttr("value");
 
   var cityID = $("#ddlCityID").val();
 
-  if (cityID === "")
+  if (cityID === "") {
+    $ddlStreet.autocomplete({ source: [] });
     return;
+  }
 
   var city = { CityID: cityID };
 
@@ -171,12 +190,12 @@ function fillStreets() {
         // Set hidden field value by selection
         event.preventDefault();
         $ddlStreet.val(ui.item.label);
-        $("#ddlStreetID").val(ui.item.value);
+        $ddlStreetID.val(ui.item.value);
       },
       change: function (event, ui) {
         // If new item reset hidden field value
         if (ui.item === null)
-          $("#ddlStreetID").removeAttr("value");
+          $ddlStreetID.removeAttr("value");
       },
       focus: function (event, ui) {
         // Show label on focus, not value
