@@ -43,5 +43,25 @@ namespace FortyTwo.BoardWebAPI.Controllers
     {
       return await BoardDAL.GetStreetsAsync(language, city);
     }
+
+    public async Task<District> GetDistrictByName(string language, string name)
+    {
+      return await BoardDAL.GetDistrictByNameAsync(language, name);
+    }
+
+    public async Task<City> GetCityByName(string language, string name)
+    {
+      return await BoardDAL.GetCityByNameAsync(language, name);
+    }
+
+    public async Task<Neighborhood> GetNeighborhoodByName(string language, string name)
+    {
+      return await BoardDAL.GetNeighborhoodByNameAsync(language, name);
+    }
+
+    public async Task<Street> GetStreetByName(string language, string name)
+    {
+      return await BoardDAL.GetStreetByNameAsync(language, name);
+    }
   }
 }

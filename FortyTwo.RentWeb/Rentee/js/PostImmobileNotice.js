@@ -28,8 +28,8 @@ function runI18n() {
 
 function fillDistricts() {
 
-  var $ddlDistrict = $("#ddlDistrict");
-  var $ddlDistrictID = $("#ddlDistrictID");
+	var $ddlDistrict = $("#ddlDistrict");
+	var $ddlDistrictID = $("#ddlDistrictID");
 
 	$.getJSON("/api/Board/GetDistricts?language=" + $.i18n().locale, function (districts) {
 
@@ -48,13 +48,27 @@ function fillDistricts() {
 				$ddlDistrictID.val(ui.item.value);
 			},
 			change: function (event, ui) {
-				// If new item reset hidden field value
-				if (ui.item === null)
-				  $ddlDistrictID.removeAttr("value");
+				if (ui.item === null) {
+					// Try to get districtID by name
+					var districtName = $ddlDistrict.val();
+					$.getJSON("/api/Board/GetDistrictByName?language=" + $.i18n().locale + "&name=" + districtName, null, function (district) {
+						if (district !== null) {
+							$ddlDistrictID.val(district.DistrictID);
+						}
+						else {
+							$ddlDistrictID.removeAttr("value");
+						}
 
-				fillCities();
-				fillNeighborhoods();
-				fillStreets();
+						fillCities();
+						fillNeighborhoods();
+						fillStreets();
+					});
+				}
+				else {
+					fillCities();
+					fillNeighborhoods();
+					fillStreets();
+				}
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
@@ -67,11 +81,11 @@ function fillDistricts() {
 
 function fillCities() {
 
-  var $ddlCity = $("#ddlCity");
-  var $ddlCityID = $("#ddlCityID");
+	var $ddlCity = $("#ddlCity");
+	var $ddlCityID = $("#ddlCityID");
 
-  $ddlCity.val("");
-  $ddlCityID.removeAttr("value");
+	$ddlCity.val("");
+	$ddlCityID.removeAttr("value");
 
 	var districtID = $("#ddlDistrictID").val();
 	var district = (districtID !== "") ? { DistrictID: districtID } : null;
@@ -93,12 +107,25 @@ function fillCities() {
 				$ddlCityID.val(ui.item.value);
 			},
 			change: function (event, ui) {
-				// If new item reset hidden field value
-				if (ui.item === null)
-					$ddlCityID.removeAttr("value");
+				if (ui.item === null) {
+					// Try to get cityID by name
+					var cityName = $ddlCity.val();
+					$.getJSON("/api/Board/GetCityByName?language=" + $.i18n().locale + "&name=" + cityName, null, function (city) {
+						if (city !== null) {
+							$ddlCityID.val(city.CityID);
+						}
+						else {
+							$ddlCityID.removeAttr("value");
+						}
 
-				fillNeighborhoods();
-				fillStreets();
+						fillNeighborhoods();
+						fillStreets();
+					});
+				}
+				else {
+					fillNeighborhoods();
+					fillStreets();
+				}
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
@@ -106,7 +133,7 @@ function fillCities() {
 				$ddlCity.val(ui.item.label);
 			},
 			search: function (event, ui) {
-        //TODO: load full list of cities after typed 3 characters
+				//TODO: load full list of cities after typed 3 characters
 			}
 		});
 	});
@@ -114,18 +141,18 @@ function fillCities() {
 
 function fillNeighborhoods() {
 
-  var $ddlNeighborhood = $("#ddlNeighborhood");
-  var $ddlNeighborhoodID = $("#ddlNeighborhoodID");
+	var $ddlNeighborhood = $("#ddlNeighborhood");
+	var $ddlNeighborhoodID = $("#ddlNeighborhoodID");
 
-  $ddlNeighborhood.val("");
-  $ddlNeighborhoodID.removeAttr("value");
+	$ddlNeighborhood.val("");
+	$ddlNeighborhoodID.removeAttr("value");
 
-  var cityID = $("#ddlCityID").val();
+	var cityID = $("#ddlCityID").val();
 
-  if (cityID === "") {
-    $ddlNeighborhood.autocomplete({ source: [] });
-    return;
-  }
+	if (cityID === "") {
+		$ddlNeighborhood.autocomplete({ source: [] });
+		return;
+	}
 
 	var city = { CityID: cityID };
 
@@ -146,9 +173,18 @@ function fillNeighborhoods() {
 				$ddlNeighborhoodID.val(ui.item.value);
 			},
 			change: function (event, ui) {
-				// If new item reset hidden field value
-				if (ui.item === null)
-					$ddlNeighborhoodID.removeAttr("value");
+				if (ui.item === null) {
+					// Try to get neighborhoodID by name
+					var neighborhoodName = $ddlNeighborhood.val();
+					$.getJSON("/api/Board/GetNeighborhoodByName?language=" + $.i18n().locale + "&name=" + neighborhoodName, null, function (neighborhood) {
+						if (neighborhood !== null) {
+							$ddlNeighborhoodID.val(neighborhood.NeighborhoodID);
+						}
+						else {
+							$ddlNeighborhoodID.removeAttr("value");
+						}
+					});
+				}
 			},
 			focus: function (event, ui) {
 				// Show label on focus, not value
@@ -161,49 +197,58 @@ function fillNeighborhoods() {
 
 function fillStreets() {
 
-  var $ddlStreet = $("#ddlStreet");
-  var $ddlStreetID = $("#ddlStreetID");
+	var $ddlStreet = $("#ddlStreet");
+	var $ddlStreetID = $("#ddlStreetID");
 
-  $ddlStreet.val("");
-  $ddlStreetID.removeAttr("value");
+	$ddlStreet.val("");
+	$ddlStreetID.removeAttr("value");
 
-  var cityID = $("#ddlCityID").val();
+	var cityID = $("#ddlCityID").val();
 
-  if (cityID === "") {
-    $ddlStreet.autocomplete({ source: [] });
-    return;
-  }
+	if (cityID === "") {
+		$ddlStreet.autocomplete({ source: [] });
+		return;
+	}
 
-  var city = { CityID: cityID };
+	var city = { CityID: cityID };
 
-  $.post("/api/Board/GetStreets?language=" + $.i18n().locale, city, function (streets) {
+	$.post("/api/Board/GetStreets?language=" + $.i18n().locale, city, function (streets) {
 
-    var streetItems = $.map(streets, function (el) {
-      return { value: el.StreetID, label: el.Name };
-    });
+		var streetItems = $.map(streets, function (el) {
+			return { value: el.StreetID, label: el.Name };
+		});
 
-    // Init Districts DDL
-    $ddlStreet.autocomplete({
-      source: streetItems,
-      minLength: 0,
-      select: function (event, ui) {
-        // Set hidden field value by selection
-        event.preventDefault();
-        $ddlStreet.val(ui.item.label);
-        $ddlStreetID.val(ui.item.value);
-      },
-      change: function (event, ui) {
-        // If new item reset hidden field value
-        if (ui.item === null)
-          $ddlStreetID.removeAttr("value");
-      },
-      focus: function (event, ui) {
-        // Show label on focus, not value
-        event.preventDefault();
-        $ddlStreet.val(ui.item.label);
-      }
-    });
-  });
+		// Init Districts DDL
+		$ddlStreet.autocomplete({
+			source: streetItems,
+			minLength: 0,
+			select: function (event, ui) {
+				// Set hidden field value by selection
+				event.preventDefault();
+				$ddlStreet.val(ui.item.label);
+				$ddlStreetID.val(ui.item.value);
+			},
+			change: function (event, ui) {
+				if (ui.item === null) {
+					// Try to get streetID by name
+					var streetName = $ddlStreet.val();
+					$.getJSON("/api/Board/GetStreetByName?language=" + $.i18n().locale + "&name=" + streetName, null, function (street) {
+						if (street !== null) {
+							$ddlStreetID.val(street.StreetID);
+						}
+						else {
+							$ddlStreetID.removeAttr("value");
+						}
+					});
+				}
+			},
+			focus: function (event, ui) {
+				// Show label on focus, not value
+				event.preventDefault();
+				$ddlStreet.val(ui.item.label);
+			}
+		});
+	});
 }
 
 //function initPositiveIntegerFields() {
@@ -224,38 +269,38 @@ function fillStreets() {
 
 $(document).ready(function () {
 
-  runI18n();
+	runI18n();
 
-  fillDistricts();
+	fillDistricts();
 
-  fillCities();
+	fillCities();
 
-  $("#btnSubmit").click(function (event) {
-    var immobileNotice = {
-      Title: "Hello",
-      Address: {
-        District: {
-          DistrictID: $("#ddlDistrictID").val(),
-          Name: $("#ddlDistrict").val()
-        },
-        City: {
-          CityID: $("#ddlCityID").val(),
-          Name: $("#ddlCity").val()
-      },
-        Neighborhood: {
-          NeighborhoodID: $("#ddlNeighborhoodID").val(),
-          Name: $("#ddlNeighborhood").val()
-        },
-        Street: {
-          StreetID: $("#ddlStreetID").val(),
-          Name: $("#ddlStreet").val()
-        },
-        BuildingNumber: $("#txtBuilding").val(),
-        ApartmentNumber: $("#txtApartment").val()
-      }
-    };
-    $.post("/api/Rentee/PostImmobileNotice?language=" + $.i18n().locale, immobileNotice, function (result) {
+	$("#btnSubmit").click(function (event) {
+		var immobileNotice = {
+			Title: "Hello",
+			Address: {
+				District: {
+					DistrictID: $("#ddlDistrictID").val(),
+					Name: $("#ddlDistrict").val()
+				},
+				City: {
+					CityID: $("#ddlCityID").val(),
+					Name: $("#ddlCity").val()
+			},
+				Neighborhood: {
+					NeighborhoodID: $("#ddlNeighborhoodID").val(),
+					Name: $("#ddlNeighborhood").val()
+				},
+				Street: {
+					StreetID: $("#ddlStreetID").val(),
+					Name: $("#ddlStreet").val()
+				},
+				BuildingNumber: $("#txtBuilding").val(),
+				ApartmentNumber: $("#txtApartment").val()
+			}
+		};
+		$.post("/api/Rentee/PostImmobileNotice?language=" + $.i18n().locale, immobileNotice, function (result) {
 
-    });
-  });
+		});
+	});
 });

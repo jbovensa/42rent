@@ -189,47 +189,98 @@ namespace FortyTwo.Board
       }
     }
 
-    public static async Task<Neighborhood> GetNeighborhoodAsync(int neighborhoodID, string language = null)
+    public static async Task<District> GetDistrictByNameAsync(string language, string name)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
-        var reader = await execStoredProcAsync("GetNeighborhood", conn,
+        var reader = await execStoredProcAsync("GetDistrictByName", conn,
           "Language", language,
-          "NeighborhoodID", neighborhoodID
+          "Name", name
           );
 
-        reader.Read();
-        return new Neighborhood()
+        if (reader.Read())
         {
-          NeighborhoodID = (int?)reader["NeighborhoodID"],
-          City = new City()
+          var district = new District()
           {
-            CityID = (int?)reader["CityID"]
-          },
-          Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
-        };
+            DistrictID = (int?)reader["DistrictID"],
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          return district;
+        }
+        else
+          return null;
       }
     }
 
-    public static async Task<Street> GetStreetAsync(int streetID, string language = null)
+    public static async Task<City> GetCityByNameAsync(string language, string name)
     {
       using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
       {
-        var reader = await execStoredProcAsync("GetStreet", conn,
+        var reader = await execStoredProcAsync("GetCityByName", conn,
           "Language", language,
-          "StreetID", streetID
+          "Name", name
           );
 
-        reader.Read();
-        return new Street()
+        if (reader.Read())
         {
-          StreetID = (int?)reader["StreetID"],
-          City = new City()
+          var city = new City()
           {
-            CityID = (int?)reader["CityID"]
-          },
-          Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
-        };
+            CityID = (int?)reader["CityID"],
+            Symbol = (string)reader["Symbol"],
+            District = (reader["DistrictID"] != DBNull.Value) ? new District() { DistrictID = (int?)reader["DistrictID"] } : null,
+            Population = (int)reader["Population"],
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          return city;
+        }
+        else
+          return null;
+      }
+    }
+
+    public static async Task<Neighborhood> GetNeighborhoodByNameAsync(string language, string name)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetNeighborhoodByName", conn,
+          "Language", language,
+          "Name", name
+          );
+
+        if (reader.Read())
+        {
+          var neighborhood = new Neighborhood()
+          {
+            NeighborhoodID = (int?)reader["NeighborhoodID"],
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          return neighborhood;
+        }
+        else
+          return null;
+      }
+    }
+
+    public static async Task<Street> GetStreetByNameAsync(string language, string name)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetStreetByName", conn,
+          "Language", language,
+          "Name", name
+          );
+
+        if (reader.Read())
+        {
+          var street = new Street()
+          {
+            StreetID = (int?)reader["StreetID"],
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          return street;
+        }
+        else
+          return null;
       }
     }
 
