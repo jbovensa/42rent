@@ -74,9 +74,6 @@ namespace FortyTwo.BoardWebAPI.Controllers
         notice.Address.Street.StreetID = streetID;
       }
 
-      //TODO: move this logic into the SP
-      await Validation.ValidateAddressAsync(notice.Address);
-
       return await BoardDAL.InsertImmobileNoticeAsync(notice, language);
     }
   }
