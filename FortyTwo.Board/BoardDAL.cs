@@ -252,6 +252,7 @@ namespace FortyTwo.Board
           var neighborhood = new Neighborhood()
           {
             NeighborhoodID = (int?)reader["NeighborhoodID"],
+            City = (reader["CityID"] != DBNull.Value) ? new City() { CityID = (int?)reader["CityID"] } : null,
             Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
           };
           return neighborhood;
@@ -275,6 +276,7 @@ namespace FortyTwo.Board
           var street = new Street()
           {
             StreetID = (int?)reader["StreetID"],
+            City = (reader["CityID"] != DBNull.Value) ? new City() { CityID = (int?)reader["CityID"] } : null,
             Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
           };
           return street;

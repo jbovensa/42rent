@@ -50,7 +50,7 @@ function fillDistricts() {
 			change: function (event, ui) {
 				if (ui.item === null) {
 					// Try to get districtID by name
-					var districtName = $ddlDistrict.val();
+				  var districtName = $ddlDistrict.val();
 					$.getJSON("/api/Board/GetDistrictByName?language=" + $.i18n().locale + "&name=" + districtName, null, function (district) {
 						if (district !== null) {
 							$ddlDistrictID.val(district.DistrictID);
@@ -150,7 +150,7 @@ function fillNeighborhoods() {
 	var cityID = $("#ddlCityID").val();
 
 	if (cityID === "") {
-		$ddlNeighborhood.autocomplete({ source: [] });
+		$ddlNeighborhood.autocomplete("option", { source: [] });
 		return;
 	}
 
@@ -206,7 +206,7 @@ function fillStreets() {
 	var cityID = $("#ddlCityID").val();
 
 	if (cityID === "") {
-		$ddlStreet.autocomplete({ source: [] });
+		$ddlStreet.autocomplete("option", { source: [] });
 		return;
 	}
 
