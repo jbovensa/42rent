@@ -50,7 +50,7 @@ function fillDistricts() {
 			change: function (event, ui) {
 				if (ui.item === null) {
 					// Try to get districtID by name
-				  var districtName = $ddlDistrict.val();
+					var districtName = $ddlDistrict.val();
 					$.getJSON("/api/Board/GetDistrictByName?language=" + $.i18n().locale + "&name=" + districtName, null, function (district) {
 						if (district !== null) {
 							$ddlDistrictID.val(district.DistrictID);
