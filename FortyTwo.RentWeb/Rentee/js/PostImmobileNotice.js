@@ -277,7 +277,7 @@ $(document).ready(function () {
 
 	$("#btnSubmit").click(function (event) {
 		var immobileNotice = {
-			Title: "Hello",
+			Title: $("#txtTitle").val(),
 			Address: {
 				District: {
 					DistrictID: $("#ddlDistrictID").val(),
