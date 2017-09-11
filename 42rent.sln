@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortyTwo.BoardWebAPI", "For
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{CB1ECC09-6F29-461A-8961-886338A80F49}"
 	ProjectSection(SolutionItems) = preProject
-		DB\42.Board.bak = DB\42.Board.bak
+		DB\42.Board.bak.zip = DB\42.Board.bak.zip
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IIS", "IIS", "{3C82E9D3-21AA-4CFB-BDC8-716C9D2E1F40}"
