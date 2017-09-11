@@ -31,7 +31,7 @@ namespace FortyTwo.BoardWebAPI.Controllers
 
     public async Task<bool> PostImmobileNotice(ImmobileNotice notice, string language = null)
     {
-      if (!notice.Address.District.DistrictID.HasValue && notice.Address.District.Name != null)
+      if (notice.Address.District.Name != null)
       {
         // New district
         var districtID = await BoardDAL.InsertDistrictAsync(language, notice.Address.District);
@@ -45,7 +45,7 @@ namespace FortyTwo.BoardWebAPI.Controllers
         // Existing district
         notice.Address.City.District = new District() { DistrictID = notice.Address.District.DistrictID };
 
-      if (!notice.Address.City.CityID.HasValue && notice.Address.City.Name != null)
+      if (notice.Address.City.Name != null)
       {
         // New city
         var cityID = await BoardDAL.InsertCityAsync(language, notice.Address.City);
@@ -60,18 +60,32 @@ namespace FortyTwo.BoardWebAPI.Controllers
         notice.Address.Street.City = new City { CityID = notice.Address.City.CityID };
       }
 
-      if (!notice.Address.Neighborhood.NeighborhoodID.HasValue && notice.Address.Neighborhood.Name != null)
+      if (notice.Address.Neighborhood.Name != null)
       {
         // New neighborhood
         var neighborhoodID = await BoardDAL.InsertNeighborhoodAsync(language, notice.Address.Neighborhood);
         notice.Address.Neighborhood.NeighborhoodID = neighborhoodID;
       }
 
-      if (!notice.Address.Street.StreetID.HasValue && notice.Address.Street.Name != null)
+      if (notice.Address.Street.Name != null)
       {
         // New street
         var streetID = await BoardDAL.InsertStreetAsync(language, notice.Address.Street);
         notice.Address.Street.StreetID = streetID;
+      }
+
+      if (notice.PropertyType.Name != null)
+      {
+        // New propertyType
+        var propertyTypeID = await BoardDAL.InsertPropertyTypeAsync(language, notice.PropertyType);
+        notice.PropertyType.PropertyTypeID = propertyTypeID;
+      }
+
+      if (notice.Price.Currency.Symbol != null)
+      {
+        // New currency
+        var currencyID = await BoardDAL.InsertCurrencyAsync(notice.Price.Currency);
+        notice.Price.Currency.CurrencyID = currencyID;
       }
 
       return await BoardDAL.InsertImmobileNoticeAsync(notice, language);

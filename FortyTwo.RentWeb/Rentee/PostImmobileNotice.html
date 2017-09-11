@@ -5,13 +5,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="../reference/jquery-autocomplete/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/PostImmobileNotice.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="../js/jquery.i18n/1.0.4/jquery.i18n.js"></script>
-    <script src="../js/jquery.i18n/1.0.4/jquery.i18n.messagestore.js"></script>
-    <script src="../js/jquery.i18n/1.0.4/jquery.i18n.emitter.bidi.js"></script>
-    <script src="../js/jquery.i18n/1.0.4/languages/he.js"></script>
+    <script src="../reference/jquery.i18n/1.0.4/jquery.i18n.js"></script>
+    <script src="../reference/jquery.i18n/1.0.4/jquery.i18n.messagestore.js"></script>
+    <script src="../reference/jquery.i18n/1.0.4/jquery.i18n.emitter.bidi.js"></script>
+    <script src="../reference/jquery.i18n/1.0.4/languages/he.js"></script>
+    <script src="../reference/jquery-autocomplete/jquery.autocomplete.js"></script>
     <script src="js/PostImmobileNotice.js"></script>
 </head>
 <body>
@@ -108,6 +110,38 @@
                             </div>
                             <div class="col-m-7 col-t-7 col-7">
                                 <input id="txtApartment" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-m-12 col-t-12 col-4 cell">
+                        <div class="row">
+                            <div class="col-m-5 col-t-5 col-5">
+                                <label for="ddlPropertyType" data-i18n="Property Type:">Property Type:</label>
+                            </div>
+                            <div class="col-m-7 col-t-7 col-7">
+                                <input id="ddlPropertyTypeID" type="hidden" /><input id="ddlPropertyType" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-m-12 col-t-12 col-4 cell">
+                        <div class="row">
+                            <div class="col-m-5 col-t-5 col-5">
+                                <label for="txtPrice" data-i18n="Price:">Price:</label>
+                            </div>
+                            <div class="col-m-7 col-t-7 col-7">
+                                <input id="txtPrice" type="number" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-m-12 col-t-12 col-4 cell">
+                        <div class="row">
+                            <div class="col-m-5 col-t-5 col-5">
+                                <label for="ddlCurrency" data-i18n="Currency:">Currency:</label>
+                            </div>
+                            <div class="col-m-7 col-t-7 col-7">
+                                <input id="ddlCurrencyID" type="hidden" /><input id="ddlCurrency" />
                             </div>
                         </div>
                     </div>

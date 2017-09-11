@@ -88,6 +88,30 @@ namespace FortyTwo.Board
       }
     }
 
+    public static async Task<int> InsertPropertyTypeAsync(string language, PropertyType propertyType)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("InsertPropertyType", conn,
+          "Language", language,
+          "Name", propertyType.Name
+          );
+        reader.Read();
+        return (int)reader["PropertyTypeID"];
+      }
+    }
+
+    public static async Task<int> InsertCurrencyAsync(Currency currency)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("InsertCurrency", conn,
+          "Symbol", currency.Symbol
+          );
+        reader.Read();
+        return (int)reader["CurrencyID"];
+      }
+    }
 
     public static async Task<IEnumerable<District>> GetDistrictsAsync(string language)
     {
@@ -286,6 +310,98 @@ namespace FortyTwo.Board
       }
     }
 
+    public static async Task<IEnumerable<PropertyType>> GetPropertyTypesAsync(string language)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetPropertyTypes", conn,
+          "Language", language,
+          "NumSuggestionsThreshold", getNumSuggestionsThreshold()
+          );
+
+        var propertyTypes = new List<PropertyType>();
+        while (reader.Read())
+        {
+          var propertyType = new PropertyType()
+          {
+            PropertyTypeID = (int?)reader["PropertyTypeID"],
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null
+          };
+          propertyTypes.Add(propertyType);
+        }
+        return propertyTypes;
+      }
+    }
+
+    public static async Task<PropertyType> GetPropertyTypeByNameAsync(string language, string name)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetPropertyTypeByName", conn,
+          "Language", language,
+          "Name", name
+          );
+
+        if (reader.Read())
+        {
+          var propertyType = new PropertyType()
+          {
+            PropertyTypeID = (int?)reader["PropertyTypeID"],
+            Name = (reader["Name"] != DBNull.Value) ? (string)reader["Name"] : null,
+          };
+          return propertyType;
+        }
+        else
+          return null;
+      }
+    }
+
+    public static async Task<IEnumerable<Currency>> GetCurrenciesAsync()
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetCurrencies", conn,
+          "NumSuggestionsThreshold", getNumSuggestionsThreshold()
+          );
+
+        var currencies = new List<Currency>();
+        while (reader.Read())
+        {
+          var currency = new Currency()
+          {
+            CurrencyID = (int?)reader["CurrencyID"],
+            Code = (reader["Code"] != DBNull.Value) ? (string)reader["Code"] : null,
+            Symbol = (reader["Symbol"] != DBNull.Value) ? (string)reader["Symbol"] : null
+          };
+          currencies.Add(currency);
+        }
+        return currencies;
+      }
+    }
+
+    public static async Task<Currency> GetCurrencyBySymbolAsync(string symbol)
+    {
+      using (SqlConnection conn = new SqlConnection(getBoardConnectionString()))
+      {
+        var reader = await execStoredProcAsync("GetCurrencyBySymbol", conn,
+          "Symbol", symbol
+          );
+
+        if (reader.Read())
+        {
+          var currency = new Currency()
+          {
+            CurrencyID = (int?)reader["CurrencyID"],
+            Code = (reader["Code"] != DBNull.Value) ? (string)reader["Code"] : null,
+            Symbol = (reader["Symbol"] != DBNull.Value) ? (string)reader["Symbol"] : null
+          };
+          return currency;
+        }
+        else
+          return null;
+      }
+    }
+
 
     public static async Task<bool> InsertImmobileNoticeAsync(ImmobileNotice notice, string language = null)
     {
@@ -295,7 +411,7 @@ namespace FortyTwo.Board
           "Language", language,
           "Title", notice.Title,
           "Price_Amount", (notice.Price != null) ? notice.Price.Amount : (float?)null,
-          "Price_Currency", (notice.Price != null) ? notice.Price.Currency : null,
+          "Price_CurrencyID", (notice.Price != null) ? ((notice.Price.Currency != null) ? notice.Price.Currency.CurrencyID : (int?)null) : null,
           "Address_DistrictID", (notice.Address != null) ? ((notice.Address.District != null) ? notice.Address.District.DistrictID : (int?)null) : null,
           "Address_CityID", (notice.Address != null) ? ((notice.Address.City != null) ? notice.Address.City.CityID : (int?)null) : null,
           "Address_NeighborhoodID", (notice.Address != null) ? ((notice.Address.Neighborhood != null) ? notice.Address.Neighborhood.NeighborhoodID : (int?)null) : null,

@@ -14,34 +14,29 @@ namespace FortyTwo.BoardWebAPI.Controllers
   {
     public async Task<IEnumerable<District>> GetDistricts(string language)
     {
-      return await BoardDAL.GetDistrictsAsync(language);
+      var districts = await BoardDAL.GetDistrictsAsync(language);
+      return districts;
     }
 
     [HttpPost]
     public async Task<IEnumerable<City>> GetCities(string language, District district)
     {
       var cities = await BoardDAL.GetCitiesAsync(language, district);
-
-      // Get a manageable amount of large cities
-      var minPopulation = 5000;
-      while (cities.Count() > 100) {
-        cities = cities.Where(c => c.Population > minPopulation);
-        minPopulation += 5000;
-      }
-
       return cities;
     }
 
     [HttpPost]
     public async Task<IEnumerable<Neighborhood>> GetNeighborhoods(string language, City city)
     {
-      return await BoardDAL.GetNeighborhoodsAsync(language, city);
+      var neighborhoods = await BoardDAL.GetNeighborhoodsAsync(language, city);
+      return neighborhoods;
     }
 
     [HttpPost]
     public async Task<IEnumerable<Street>> GetStreets(string language, City city)
     {
-      return await BoardDAL.GetStreetsAsync(language, city);
+      var streets = await BoardDAL.GetStreetsAsync(language, city);
+      return streets;
     }
 
     public async Task<District> GetDistrictByName(string language, string name)
@@ -62,6 +57,28 @@ namespace FortyTwo.BoardWebAPI.Controllers
     public async Task<Street> GetStreetByName(string language, string name)
     {
       return await BoardDAL.GetStreetByNameAsync(language, name);
+    }
+
+    public async Task<IEnumerable<PropertyType>> GetPropertyTypes(string language)
+    {
+      var propertyTypes = await BoardDAL.GetPropertyTypesAsync(language);
+      return propertyTypes;
+    }
+
+    public async Task<PropertyType> GetPropertyTypeByName(string language, string name)
+    {
+      return await BoardDAL.GetPropertyTypeByNameAsync(language, name);
+    }
+
+    public async Task<IEnumerable<Currency>> GetCurrencies()
+    {
+      var currencies = await BoardDAL.GetCurrenciesAsync();
+      return currencies;
+    }
+
+    public async Task<Currency> GetCurrencyBySymbol(string symbol)
+    {
+      return await BoardDAL.GetCurrencyBySymbolAsync(symbol);
     }
   }
 }

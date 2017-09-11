@@ -51,10 +51,17 @@ namespace FortyTwo.Board.Models
     public string Name { get; set; }
   }
 
+  public class Currency
+  {
+    public int? CurrencyID { get; set; }
+    public string Code { get; set; }
+    public string Symbol { get; set; }
+  }
+
   public class Price
   {
     public float Amount { get; set; }
-    public string Currency { get; set; }
+    public Currency Currency { get; set; }
   }
 
   public class Notice
